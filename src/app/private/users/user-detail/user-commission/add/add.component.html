@@ -1,0 +1,86 @@
+
+<section class="p-5">
+
+  <h1 class="p-3">تنظیمات ارز</h1>
+
+<form [formGroup]="commissionForm" (ngSubmit)="onSubmit()" class="flex flex-col justify-start items-center p-5">
+  <mat-form-field appearance="outline">
+    <mat-label>فی</mat-label>
+    <input matInput formControlName="fee">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>نوع ارز</mat-label>
+    <mat-select formControlName="symbol_type" #symbol_type>
+      <mat-option value="currency">رمز ارز</mat-option>
+      <mat-option value="currency_pair">جفت ارز</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>نماد ارز</mat-label>
+    <mat-select formControlName="symbol">
+      <div *ngIf="symbol_type.value == 'currency';else pairCurrencies">
+        <mat-option [value]="currency.symbol" *ngFor="let currency of currencies$ | async">{{currency.slug}}</mat-option>
+      </div>
+      <ng-template #pairCurrencies>
+        <mat-option [value]="currency.symbol" *ngFor="let currency of (pairCurrencies$ | async)">{{currency.currency_pair}}</mat-option>
+      </ng-template>
+      <!-- <mat-option value="one" *ngFor="let currency of currencies">{{currency.slug}}</mat-option> -->
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>عملیات</mat-label>
+    <mat-select formControlName="action_type" #action_type>
+        <div *ngIf="symbol_type.value == 'currency';else pairCurrenciesactions">
+          <mat-option value="withdraw ">برداشت</mat-option>
+          <mat-option value="deposit">واریز</mat-option>
+          <mat-option value="fast">معامله سریع</mat-option>
+        </div>
+        <ng-template #pairCurrenciesactions>
+          <mat-option value="trade_taker">گیرنده</mat-option>
+          <mat-option value="trade_maker">سازنده</mat-option>
+        </ng-template>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" *ngIf="action_type.value == 'trade_maker' || action_type.value == 'trade_taker'">
+    <mat-label>بازار</mat-label>
+    <mat-select formControlName="market">
+      <mat-option *ngFor="let market of markets" [value]="market.key">{{market.key}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>سقف روزانه</mat-label>
+    <input matInput formControlName="daily_limit">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>سقف هفتگی</mat-label>
+    <input matInput formControlName="weekly_limit">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>سقف ماهانه</mat-label>
+    <input matInput formControlName="monthly_limit">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>وضعیت</mat-label>
+    <mat-select formControlName="blocked">
+          <mat-option value=""></mat-option>
+          <mat-option [value]="true">فعال</mat-option>
+          <mat-option [value]="false">غیرفعال</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="flex items-center">
+    <button mat-raised-button color="primary" type="submit">ثبت</button>
+
+    <div mat-dialog-actions class="!flex !justify-end !items-center">
+      <button mat-raised-button mat-dialog-close color="warn">برگشت</button>
+    </div>
+  </div>
+
+</form>
+
+
+</section>
+<mat-progress-bar mode="determinate" bufferValue="0" class="!rounded-full !-mt-1"></mat-progress-bar>

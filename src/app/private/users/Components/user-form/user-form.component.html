@@ -1,0 +1,46 @@
+<form [formGroup]="newUserForm" (ngSubmit)="onSubmit()" class="flex flex-col justify-start items-center p-5">
+  <mat-form-field appearance="outline">
+    <mat-label>پیش شماره</mat-label>
+    <mat-select formControlName="mobile_prefix">
+      <mat-option [value]="country.mobile_prefix" *ngFor="let country of countries$ | async">
+        {{ country.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>شماره همراه</mat-label>
+    <input maxlength="11" matInput formControlName="mobile"  [disabled]="editMode()">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>نام</mat-label>
+    <input matInput formControlName="firstname">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>نام خانوادگی</mat-label>
+    <input matInput formControlName="lastname">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>ایمیل</mat-label>
+    <input matInput formControlName="email">
+  </mat-form-field>
+  <mat-form-field appearance="outline" *ngIf="data.data.password == ''">
+    <mat-label>رمز عبور</mat-label>
+    <input matInput formControlName="password" [disabled]="editMode()">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>سطح دسترسی</mat-label>
+    <mat-select formControlName="role_id" [value]="data.data.role_id">
+      <mat-option [value]="role.id" *ngFor="let role of roles$ | async">
+        {{ "roles." + role.name | translate }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="flex items-center">
+    <button mat-raised-button color="primary"
+            type="submit">{{("add" === 'add' ? 'submit' : 'edit') | translate}}</button>
+            <div mat-dialog-actions class="!flex !justify-end !items-center">
+              <button mat-raised-button mat-dialog-close color="warn">برگشت</button>
+            </div>
+  </div>
+</form>

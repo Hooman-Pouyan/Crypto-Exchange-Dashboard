@@ -1,0 +1,24 @@
+:host ::ng-deep .p-splitter {
+  direction: ltr;
+  @media (max-width: 992px) {
+    flex-direction: column;
+    overflow: auto;
+    .p-splitter-panel:first-child{
+      order:1
+    }
+    .p-splitter-panel:nth-child(2){
+      order: 0;
+    }
+  }
+}
+
+// :host ::ng-deep .mat-tab-label {
+//   transform: rotate(-90deg);
+//   transform-origin: left top;
+//   width: 100px; /* Set the desired width of the vertical tabs */
+//   white-space: nowrap; /* Prevent text wrapping in tabs */
+//   height: 100%; /* Set the desired height of the vertical tabs */
+//   display: flex;
+//   justify-content: flex-end;
+//   align-items: center;
+// }

@@ -1,0 +1,78 @@
+<form [formGroup]="filterForm" (ngSubmit)="saveForm()" class="mt-2">
+  <div class="text-end mb-2">
+    <button type="button" routerLink="add" mat-raised-button class="!bg-green-600 hover:!bg-green-700 !text-white">
+      <mat-icon>add</mat-icon>
+      {{translateService.instant('add new')}}
+    </button>
+  </div>
+  <div class="grid lg:grid-cols-3 lg:gap-4">
+    <mat-form-field>
+      <mat-label>{{translateService.instant('currency pair.base asset')}}</mat-label>
+      <mat-select formControlName="base_asset" [(ngModel)]="base_asset">
+        <input (keyup)="filterBaseCurrencies($event)" class="w-full filterBox" [placeholder]="'search' | translate">
+        <mat-option *ngFor="let currency of baseCurrencies()" [value]="currency.symbol">{{currency.symbol}}</mat-option>
+      </mat-select>
+      <button *ngIf="base_asset" matSuffix mat-icon-button aria-label="Clear" (click)="base_asset=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{translateService.instant('currency pair.quote asset')}}</mat-label>
+      <mat-select formControlName="quote_asset" [(ngModel)]="quote_asset">
+        <input (keyup)="filterAssetCurrencies($event)" class="w-full filterBox" [placeholder]="'search' | translate">
+        <mat-option *ngFor="let currency of assetCurrencies()" [value]="currency.symbol">{{currency.symbol}}</mat-option>
+      </mat-select>
+      <button *ngIf="quote_asset" matSuffix mat-icon-button aria-label="Clear" (click)="quote_asset=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  <mat-form-field>
+      <mat-label>{{translateService.instant('currency pair.market')}}</mat-label>
+      <mat-select formControlName="market" [(ngModel)]="market">
+        <mat-option [value]="true">{{translateService.instant('enable')}}</mat-option>
+        <mat-option [value]="false">{{translateService.instant('disable')}}</mat-option>
+      </mat-select>
+      <button *ngIf="market!=null" matSuffix mat-icon-button aria-label="Clear" (click)="market=null">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+  </div>
+  <div class="grid lg:grid-cols-3 lg:gap-4">
+    <mat-form-field>
+      <mat-label>{{translateService.instant('is_margin_trading_allowed')}}</mat-label>
+      <mat-select formControlName="is_margin_trading_allowed" [(ngModel)]="is_margin_trading_allowed">
+        <mat-option [value]="true">{{translateService.instant('enable')}}</mat-option>
+        <mat-option [value]="false">{{translateService.instant('disable')}}</mat-option>
+      </mat-select>
+      <button *ngIf="is_margin_trading_allowed!=null" matSuffix mat-icon-button aria-label="Clear" (click)="is_margin_trading_allowed=null">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>{{translateService.instant('is_spot_trading_allowed')}}</mat-label>
+      <mat-select formControlName="is_spot_trading_allowed" [(ngModel)]="is_spot_trading_allowed">
+        <mat-option [value]="true">{{translateService.instant('enable')}}</mat-option>
+        <mat-option [value]="false">{{translateService.instant('disable')}}</mat-option>
+      </mat-select>
+      <button *ngIf="is_spot_trading_allowed!=null" matSuffix mat-icon-button aria-label="Clear" (click)="is_spot_trading_allowed=null">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>{{translateService.instant('status')}}</mat-label>
+      <mat-select formControlName="status" [(ngModel)]="status">
+        <mat-option [value]="true">{{translateService.instant('enable')}}</mat-option>
+        <mat-option [value]="false">{{translateService.instant('disable')}}</mat-option>
+      </mat-select>
+      <button *ngIf="status!=null" matSuffix mat-icon-button aria-label="Clear" (click)="status=null">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div class="w-full text-end">
+    <button class="me-2" mat-raised-button color="primary">{{translateService.instant('search')}}</button>
+    <button type="submit" mat-raised-button color="accent" (click)="filterForm.reset()">ریست</button>
+  </div>
+</form>

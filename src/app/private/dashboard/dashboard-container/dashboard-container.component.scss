@@ -1,0 +1,35 @@
+.example-container {
+  width: 100vw;
+  height: 100vh;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  @apply bg-gradient-to-br from-slate-300 to-slate-500 w-screen h-screen;
+}
+
+.example-sidenav-content {
+  // display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.example-sidenav {
+  width: 300px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  transition: 0.2s ease-in-out all;
+  opacity: 1;
+  @apply border-[3px] shadow-inner
+}
+
+.example-sidenav.hide{
+  width: 70px !important;
+  opacity: 0.7 !important;
+
+  // transition: 0.2s linear all;
+
+
+
+}

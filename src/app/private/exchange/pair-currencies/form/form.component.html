@@ -1,0 +1,184 @@
+<section class="mt-3">
+  <p-tabMenu [model]="items" [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event)"></p-tabMenu>
+</section>
+<div [ngSwitch]="activeItem?.id">
+  <section *ngSwitchCase="1">
+    <form [formGroup]="form">
+      <section class="flex flex-col lg:flex-row justify-center">
+        <div class="w-full lg:w-9/12 lg:p-5 mt-3 lg:mt-0 flex flex-col justify-center gap-y-5">
+          <section class="name w-full h-fit">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <mat-card-subtitle>{{translate.instant('Basic Information')}}</mat-card-subtitle>
+              </mat-card-header>
+              <mat-divider></mat-divider>
+              <mat-card-content>
+                <div class="pt-2 grid lg:grid-cols-3 lg:gap-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('currency pair.base asset')}}</mat-label>
+                    <input matInput formControlName="base_asset">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('currency pair.quote asset')}}</mat-label>
+                    <input matInput formControlName="quote_asset">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('currency pair.currency pair')}}</mat-label>
+                    <input matInput formControlName="currency_pair">
+                  </mat-form-field>
+                </div>
+
+              </mat-card-content>
+              <mat-card-footer>
+                <mat-progress-bar mode="determinate" bufferValue="0"></mat-progress-bar>
+              </mat-card-footer>
+            </mat-card>
+          </section>
+
+          <section class="name w-full h-fit">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <mat-card-subtitle>{{translate.instant('price information')}}</mat-card-subtitle>
+              </mat-card-header>
+              <mat-divider></mat-divider>
+              <mat-card-content>
+                <div class="pt-2 grid lg:grid-cols-2 lg:gap-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('currency pair.maker fee')}}</mat-label>
+                    <input matInput formControlName="maker_fee">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('currency pair.taker fee')}}</mat-label>
+                    <input matInput formControlName="taker_fee">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('currency pair.bid multiplier up')}}</mat-label>
+                    <input matInput formControlName="bid_multiplier_up">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('currency pair.bid multiplier down')}}</mat-label>
+                    <input matInput formControlName="bid_multiplier_down">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('currency pair.ask multiplier up')}}</mat-label>
+                    <input matInput formControlName="ask_multiplier_up">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('currency pair.ask multiplier down')}}</mat-label>
+                    <input matInput formControlName="ask_multiplier_down">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('currency pair.leverage cross')}}</mat-label>
+                    <input matInput formControlName="leverage_cross">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('currency pair.leverage isolated')}}</mat-label>
+                    <input matInput formControlName="leverage_isolated">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('currency pair.base_asset_precision')}}</mat-label>
+                    <input matInput formControlName="base_asset_precision">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('currency pair.quote_asset_precision')}}</mat-label>
+                    <input matInput formControlName="quote_asset_precision">
+                  </mat-form-field>
+                </div>
+
+              </mat-card-content>
+              <mat-card-footer>
+                <mat-progress-bar mode="determinate" bufferValue="0"></mat-progress-bar>
+              </mat-card-footer>
+            </mat-card>
+          </section>
+
+          <section class="name w-full h-fit">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <mat-card-subtitle>{{translate.instant('other setting')}}</mat-card-subtitle>
+              </mat-card-header>
+              <mat-divider></mat-divider>
+              <mat-card-content>
+                <ul>
+                  <li class="grid grid-cols-2">
+                    <span>{{translate.instant('firstname')}}</span>
+                    <span>{{translate.instant('status')}}</span>
+                  </li>
+                  <li class="grid grid-cols-2">
+                    <span>{{translate.instant('currency pair.OCO allowed')}}</span>
+                    <mat-checkbox formControlName="oco_allowed"></mat-checkbox>
+                  </li>
+                  <li class="grid grid-cols-2">
+                    <span>{{translate.instant('currency pair.is margin trading allowed')}}</span>
+                    <mat-checkbox formControlName="is_margin_trading_allowed"></mat-checkbox>
+                  </li>
+                  <li class="grid grid-cols-2">
+                    <span>{{translate.instant('currency pair.is spot trading allowed')}}</span>
+                    <mat-checkbox formControlName="is_spot_trading_allowed"></mat-checkbox>
+                  </li>
+                  <li class="grid grid-cols-2">
+                    <span>{{translate.instant('currency pair.cross margin allowed')}}</span>
+                    <mat-checkbox formControlName="cross_margin_allowed"></mat-checkbox>
+                  </li>
+                  <li class="grid grid-cols-2">
+                    <span>{{translate.instant('currency pair.isolated margin allowed')}}</span>
+                    <mat-checkbox formControlName="isolated_margin_allowed"></mat-checkbox>
+                  </li>
+                  <li class="grid grid-cols-2">
+                    <span>{{translate.instant('currency pair.limit')}}</span>
+                    <mat-checkbox formControlName="limit"></mat-checkbox>
+                  </li>
+                  <li class="grid grid-cols-2">
+                    <span>{{translate.instant('currency pair.stop limit')}}</span>
+                    <mat-checkbox formControlName="stop_limit"></mat-checkbox>
+                  </li>
+                  <li class="grid grid-cols-2">
+                    <span>{{translate.instant('currency pair.market')}}</span>
+                    <mat-checkbox formControlName="market"></mat-checkbox>
+                  </li>
+                </ul>
+              </mat-card-content>
+            </mat-card>
+          </section>
+
+
+        </div>
+
+        <div class="w-full lg:w-3/12 lg:p-5 mt-3 lg:mt-0" id="leftSection">
+          <button (click)="submitForm(1)" mat-raised-button color="primary" class="mb-2 w-full order-1">
+            {{translate.instant('action.save and back to the list')}}
+            <mat-icon>telegram</mat-icon>
+          </button>
+          <button (click)="submitForm(2)" mat-raised-button class="mb-2 w-full order-2">
+            {{translate.instant('action.save and add another')}}
+            <mat-icon>undo</mat-icon>
+          </button>
+          <button (click)="submitForm(3)" mat-raised-button class="mb-2 w-full order-3">
+            {{translate.instant('action.save and continue editing')}}
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <div class="grid grid-cols-2 justify-between mb-2">
+            <span>{{translate.instant('status')}}</span>
+            <mat-slide-toggle formControlName="status" [checked]="form.get('status')?.value" class="text-end"></mat-slide-toggle>
+          </div>
+
+          <div class="grid grid-cols-2 justify-between mb-2">
+            <span>{{translate.instant('Currency.default')}}</span>
+            <mat-slide-toggle formControlName="is_default" [checked]="form.get('is_default')?.value" class="text-end"></mat-slide-toggle>
+          </div>
+        </div>
+      </section>
+
+    </form>
+
+  </section>
+
+  <section *ngSwitchCase="2">
+    <app-fees [type]="'currency_pair'" [id]="+currencyId"></app-fees>
+  </section>
+</div>

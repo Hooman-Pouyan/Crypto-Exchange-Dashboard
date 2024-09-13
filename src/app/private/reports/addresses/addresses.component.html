@@ -1,0 +1,22 @@
+<div class="grid lg:grid-cols-4 lg:gap-4 mt-5 gap-3">
+  <ng-container *ngIf="addresses(); loading">
+  <div *ngFor="let item of addresses()">
+    <mat-card class="example-card">
+      <mat-card-content>
+        <p class="symbol">{{item.network}}</p>
+        <p>{{'استفاده شده: ' + item.used}}</p>
+        <p>{{'کل آدرس ها:' + item.address_count}}</p>
+        <p>{{'تعداد ارز قابل پشتیبانی:' + item.support_currency}}</p>
+      </mat-card-content>
+
+      <mat-card-footer>
+        <mat-progress-bar mode="determinate"></mat-progress-bar>
+      </mat-card-footer>
+    </mat-card>
+
+  </div>
+  </ng-container>
+  <ng-template #loading>
+    <p-skeleton *ngFor="let item of [0,2,3,4,5,6,7,8]"></p-skeleton>
+  </ng-template>
+</div>

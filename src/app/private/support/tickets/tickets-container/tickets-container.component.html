@@ -1,0 +1,92 @@
+<div class="card mt-5 pb-10 ">
+  <p-splitter [panelSizes]="[80, 20]" [style]="{ height: '700px' }" styleClass="mb-5 overflow-hidden relative">
+    <ng-template pTemplate>
+      <div class="w-full h-full overflow-y-scroll bg-slate-200">
+
+        <router-outlet></router-outlet>
+
+      </div>
+    </ng-template>
+    <ng-template pTemplate>
+      <div class="flex justify-start items-start w-full h-full">
+
+        <section class="flex flex-col justify-start items-center h-full w-full">
+
+          <h1 class="!w-full mt-7 text-2xl bg-slate-300 bg-opacity-30 p-5 text-center">تیکت ها</h1>
+          <p-divider></p-divider>
+          <mat-tab-group (selectedTabChange)="changeTab($event)" [selectedIndex]="tabIndex" mat-stretch-tabs="false"
+                         mat-align-tabs="start">
+            <mat-tab label="بسته شده ها" class="h-fit !overflow-y-scroll bg-green-500">
+              <section class="p-2 justify-center items-center h-[450px] overflow-auto">
+                <div *ngFor="let ticket of closedTickets()" [routerLink]="[ticket.id + '/reply']"
+                     class="flex flex-row-reverse cursor-pointer hover:bg-blue-600 transition-all duration-100 hover:text-slate-50 hover:shadow-xl justify-start items-center p-5 mt-2 bg-slate-50 shadow-inner rounded-md w-full">
+                  <div class="overflow-hidden rounded-full w-10 h-10 border-2">
+                    <img [src]="fileUrl + ticket.image.id" alt="" title="">
+                  </div>
+                  <div class="mr-5">
+                    <div>{{ticket.user}}</div>
+                    <div>{{ticket.mobile_prefix + ticket.mobile}}</div>
+                    <div></div>
+                  </div>
+                  {{ticket.name}}
+                </div>
+              </section>
+            </mat-tab>
+            <mat-tab label="تیکت های من" class="h-fit !overflow-y-scroll bg-green-500">
+              <section class="p-2 justify-center items-center h-[450px] overflow-auto">
+                <div *ngFor="let ticket of myTickets()" [routerLink]="[ticket.id + '/reply']"
+                     class="flex flex-row-reverse cursor-pointer hover:bg-blue-600 transition-all duration-100 hover:text-slate-50 hover:shadow-xl justify-start items-center p-5 mt-2 bg-slate-50 shadow-inner rounded-md w-full ">
+                  <div class="overflow-hidden rounded-full w-10 h-10 border-2">
+                    <img [src]="fileUrl + ticket.image.id" alt="" title="">
+                  </div>
+                  <div class="mr-5">
+                    <div>{{ticket.user}}</div>
+                    <div>{{ticket.mobile_prefix + ticket.mobile}}</div>
+                    <div></div>
+                  </div>
+                  {{ticket.id}}
+                </div>
+              </section>
+            </mat-tab>
+            <mat-tab label="صندوق ورودی" class="h-fit !overflow-y-scroll bg-green-500">
+              <section class="p-2 justify-center items-center h-[450px] overflow-auto"
+                       *ngIf="allOpenTickets() && dataLoaded; else loading">
+                <div *ngFor="let ticket of allOpenTickets();let i=index" [routerLink]="[ticket.id + '/reply']"
+                     class="flex flex-row-reverse cursor-pointer hover:bg-blue-600 transition-all duration-100 hover:text-slate-50 hover:shadow-xl justify-start items-center p-5 mt-2 bg-slate-50 shadow-inner rounded-md w-full">
+                  <div class="overflow-hidden rounded-full w-10 h-10" [ngClass]="dataLoaded()?'border-2':''">
+                    <p-skeleton [hidden]="dataLoaded" shape="circle" width="100%" height="100%"></p-skeleton>
+                    <img class="rounded-full" [hidden]="!dataLoaded" [src]="fileUrl + ticket?.image?.id"
+                         (load)="dataLoaded.set(true)" [alt]="ticket.user"/>
+                  </div>
+                  <div class="mr-5">
+                    <div>{{ticket.user}}</div>
+                    <div>{{ticket.mobile_prefix + ticket.mobile}}</div>
+                    <div></div>
+                  </div>
+                  {{ticket.name}}
+                </div>
+              </section>
+              <ng-template #loading>
+                <section class="p-3">
+                  <div class="w-full h-[96px] mt-3" *ngFor="let item of [].constructor(10)">
+                    <p-skeleton width="100%" height="100%"></p-skeleton>
+                  </div>
+                </section>
+              </ng-template>
+            </mat-tab>
+          </mat-tab-group>
+
+          <app-pagination-container *ngIf="totalRecord"
+                                    class="w-full flex justify-center" dir="rtl"
+                                    [length]="totalRecord"
+                                    [hidePageSize]="true"
+                                    (pageChange)="pageChange($event)"
+          ></app-pagination-container>
+
+        </section>
+
+
+      </div>
+    </ng-template>
+  </p-splitter>
+</div>

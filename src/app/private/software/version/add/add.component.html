@@ -1,0 +1,81 @@
+<div class="p-3">
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>{{'version number' | translate}}</mat-label>
+      <input matInput type="text" formControlName="code">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>{{'version name' | translate}}</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+    <mat-form-field class="w-full" appearance="outline">
+      <input (change)="setFile($event)" type="file" class="absolute top-0 z-10 h-full w-full cursor-pointer opacity-0" formControlName="file"/>
+      <mat-label>{{'file' | translate}}</mat-label>
+      <input matInput class="z-0" />
+      <mat-icon matSuffix class="mr-2">cloud_upload</mat-icon>
+    </mat-form-field>
+    <div class="w-full text-center mb-2" *ngIf="editVersionFile">
+      <label class="bg-blue-300 rounded p-2">
+        <a [href]="editVersionFile">
+          <mat-icon fontIcon="download" class="download-icon"></mat-icon>
+          {{data?.data?.file?.file_name}}
+        </a>
+      </label>
+    </div>
+
+    <mat-checkbox formControlName="force">{{'force update' | translate}}</mat-checkbox>
+      <mat-tab-group>
+        <mat-tab label="فارسی">
+          <div formArrayName="faValues">
+          <button [disabled]="form.disabled" type="button" mat-raised-button color="primary" class="mb-2 mt-2" (click)="addValues([''])">{{'add' | translate}}</button>
+          <div *ngIf="values" class="grid grid-cols-1 lg:grid-cols-4 gap-3">
+            <mat-form-field appearance="outline" *ngFor="let item of values.controls; let i=index" [formGroupName]="i">
+              <mat-label>{{'log' | translate }}</mat-label>
+              <input matInput formControlName="name">
+            </mat-form-field>
+          </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="انگلیسی">
+          <div formArrayName="enValues">
+            <button [disabled]="form.disabled" type="button" mat-raised-button color="primary" class="mb-2 mt-2" (click)="addEnValues([''])">{{'add' | translate}}</button>
+            <div *ngIf="enValues" class="grid grid-cols-1 lg:grid-cols-4 gap-3">
+              <mat-form-field appearance="outline" *ngFor="let item of enValues.controls; let i=index" [formGroupName]="i">
+                <mat-label>{{'log' | translate }}</mat-label>
+                <input matInput formControlName="name">
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="عربی">
+          <div formArrayName="arValues">
+            <button [disabled]="form.disabled" type="button" mat-raised-button color="primary" class="mb-2 mt-2" (click)="addArValues([''])">{{'add' | translate}}</button>
+            <div *ngIf="arValues" class="grid grid-cols-1 lg:grid-cols-4 gap-3">
+              <mat-form-field appearance="outline" *ngFor="let item of arValues.controls; let i=index" [formGroupName]="i">
+                <mat-label>{{'log' | translate }}</mat-label>
+                <input matInput formControlName="name">
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="ترکی">
+          <div formArrayName="trValues">
+            <button [disabled]="form.disabled" type="button" mat-raised-button color="primary" class="mb-2 mt-2" (click)="addTrValues([''])">{{'add' | translate}}</button>
+            <div *ngIf="trValues" class="grid grid-cols-1 lg:grid-cols-4 gap-3">
+              <mat-form-field appearance="outline" *ngFor="let item of trValues.controls; let i=index" [formGroupName]="i">
+                <mat-label>{{'log' | translate }}</mat-label>
+                <input matInput formControlName="name">
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+
+    <button mat-raised-button color="primary" [disabled]="form.disabled">
+      <mat-spinner *ngIf="loading" [diameter]="30" [color]="'accent'"></mat-spinner>
+      <span *ngIf="!loading">{{'submit' | translate}}</span>
+    </button>
+    <button type="button" mat-raised-button color="accent"  (click)="closeDialog()" class="ms-3">{{'cancel' | translate}}</button>
+  </form>
+
+</div>

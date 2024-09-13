@@ -1,0 +1,33 @@
+<section class="w-6/12 mx-auto mt-3" *ngIf="networks().length">
+  <mat-card class="example-card mb-3 relative">
+    <mat-card-header>
+      <mat-card-title>
+        <h4 class="border-b-2 mb-3 p-2">مدیریت آدرس شبکه ها</h4>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="submitForm()">
+        <mat-form-field appearance="outline" class="w-full" dir="rtl">
+          <mat-label>انتخاب شبکه</mat-label>
+          <mat-select  formControlName="network">
+            <mat-option *ngFor="let item of networks()" [value]="item">{{item}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="w-full" appearance="outline">
+          <input (change)="setFile($event)" type="file" class="absolute top-0 z-10 h-full w-full cursor-pointer opacity-0" formControlName="file"/>
+          <mat-label>
+            <p class="flex align-center">
+              <span class="pi pi-fw pi-file-excel"></span>
+              <span>فایل اکسل</span>
+            </p>
+            <p *ngIf="selectedFile">{{selectedFile}}</p>
+          </mat-label>
+          <input matInput readonly class="z-0" />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary">ثبت</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</section>

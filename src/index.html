@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8"/>
+  <title>MegaExAdminPanel</title>
+  <base href="/"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="manifest" href="manifest.webmanifest"/>
+  <meta name="theme-color" content="#1976d2"/>
+  <link rel="stylesheet" href="assets/Fonts/fontiran.css"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com"/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
+    rel="stylesheet"/>
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet"/>
+  <style>
+    .svg-logo{
+      transform: translateX(20px);
+    }
+  </style>
+</head>
+<body class="mat-typography overflow-hidden">
+<div
+  class="pre-loader flex flex-col justify-center items-center text-center mx-auto text-lg w-screen h-screen overflow-hidden">
+  <div class="logo-wrapper shadow-inner">
+    <svg width="100%" viewBox="0 0 90 55" xmlns="http://www.w3.org/2000/svg" class="svg-logo mt-7">
+      <path class="piece1" data-name="Path 170"
+            d="M.132 19.71 19.768.114A.4.4 0 0 1 20.046 0l14.782.018a.392.392 0 0 1 .392.392l-.02 14.781a.392.392 0 0 1-.114.278L15.452 35.062a.392.392 0 0 1-.278.114L.392 35.159A.389.389 0 0 1 0 34.766l.018-14.781a.392.392 0 0 1 .114-.278z"
+            style="fill:#1a81f7"/>
+      <path class="piece2" data-name="Path 171"
+            d="M30.802 19.707 50.438.114A.392.392 0 0 1 50.716 0l14.782.018a.392.392 0 0 1 .391.392l-.018 14.781a.392.392 0 0 1-.114.278L46.122 35.062a.392.392 0 0 1-.278.114l-14.781-.018a.392.392 0 0 1-.392-.392l.018-14.781a.392.392 0 0 1 .113-.278z"/>
+      <path class="piece3" data-name="Path 172"
+            d="M61.477 19.706a.392.392 0 0 1 .278-.114l14.781.018a.392.392 0 0 1 .392.392l-.018 14.781a.39.39 0 0 1-.392.392l-14.781-.017a.392.392 0 0 1-.392-.392l.018-14.782a.392.392 0 0 1 .114-.278z"/>
+      <path data-name="Path 173"
+            d="M10.641 46.932H12.7l-.02-5.047-2.028-2.728H7.411l-1.087 1.36-1.093-1.36H0v7.776h2.281v-5.712h2.95v5.711h2.192L7.4 41.221h3.238z"/>
+      <path data-name="Path 174"
+            d="M16.825 40.761v4.82l1.466 1.361h6.325v-1.76h-5.883v-1.257h4.508v-1.471h-4.508v-1.517h5.883v-1.78h-6.252z"/>
+      <path data-name="Path 175"
+            d="m28.743 45.159 1.636 1.8h6.325l1.613-1.8v-2.433h-2.971v1.656h.99v.777H30.8v-4.228h5.352v-1.774h-5.608l-1.8 1.775z"/>
+      <path data-name="Path 176"
+            d="m51.927 41.323-1.956-2.166h-5.327l-2.2 2.265v5.535h2.176V44.61h5.316v2.347h1.992c-.049 0 0-5.634 0-5.634zm-1.993 1.524h-5.315v-1.818h5.316s-.047 1.766-.001 1.818z"/>
+      <path data-name="Path 177"
+            d="M56.056 40.761v4.82l1.466 1.361h6.325v-1.76h-5.884v-1.257h4.508v-1.471h-4.508v-1.517h5.884v-1.78h-6.251z"/>
+      <path data-name="Path 178"
+            d="m72.42 44.036 2.248 2.872h2.2v-.523l-2.835-3.182 2.835-3.426v-.62h-2.1l-2.345 2.967"/>
+      <path data-name="Path 179"
+            d="m72.421 44.036-2.249 2.871h-2.2v-.523l2.835-3.182-2.835-3.425v-.62h2.1l2.346 2.967"/>
+    </svg>
+  </div>
+
+  <span class="mt-5 loading">...Loading</span>
+</div>
+<app-root></app-root>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      document.querySelector('.pre-loader').remove();
+    }, 2000)
+  });
+</script>
+<noscript
+>Please enable JavaScript to continue using this application.
+</noscript
+>
+
+<!-- <script src="../node_modules/animejs/lib/anime.es.js">
+  const anime = require('animejs');
+
+  anime({
+    targets: '.piece1',
+    translateX: 250,
+    rotate: '1turn',
+    backgroundColor: '#FFF',
+    duration: 800
+  });
+</script> -->
+</body>
+</html>

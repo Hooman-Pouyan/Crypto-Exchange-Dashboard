@@ -1,0 +1,108 @@
+<section class="p-5">
+
+  <ng-container *ngIf="task().info;else loading">
+
+    <mat-card class="!flex">
+      <mat-card-header class="!flex  justify-start !text-start">
+        <mat-card-title>
+          اطلاعات کاربر
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="p-5">
+        <div class="flex flex-col lg:flex-row justify-between items-center p-5">
+          <div class="flex flex-col lg:flex-row justify-start items-center flex-1">
+            <div class="profileImage p-2">
+              <div *ngIf="profileImage() != '';else noImage">
+                <img [src]="profileImage()" alt="" title="" class="w-16 h-16 rounded-md">
+              </div>
+              <ng-template #noImage>
+                <div class="w-16 h-16 rounded-lg bg-slate-200">
+                </div>
+              </ng-template>
+            </div>
+            <div class="flex flex-col p-2">
+              <div class="w-full text-center lg:text-start">
+                {{task().info.user | undefined}}
+              </div>
+              <div>
+                {{task().info.email | undefined}}
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col justify-center lg:justify-around items-end flex-1">
+            <div>
+              {{task().info.created_at}}
+            </div>
+            <div class="w-full text-center lg:text-end">
+              {{task().info.default_language}}
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-progress-bar mode="determinate" bufferValue="0" class="!rounded-full !-mt-1"></mat-progress-bar>
+
+    </mat-card>
+
+    <mat-card class="!flex flex-row-reverse mt-10">
+      <mat-card-header class="!flex  justify-start !text-start">
+        <mat-card-title>
+          اطلاعات درخواست
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="p-5">
+          <ul>
+            <li *ngFor="let item of task().callback"
+                class="text-blue-500 bg-blue-100 my-2 p-3 rounded-md overflow-auto">
+          <span>
+            {{item.label + ':'}}
+          </span>
+              <span>
+            <span [ngClass]="item.value | status" *ngIf="item.column_name !== 'image' && item.column_name !== 'back_image';else image">
+            {{item.value}}
+            </span>
+            <ng-template #image>
+              <section *ngIf="item.column_name === 'image'">
+                <a [href]="documentImage()" target="_blank" class="w-12 h-12 !rounded-md !bg-green-600 !text-white p-1">
+              <button>
+                بررسی فایل
+              </button>
+            </a>
+              </section>
+              <section *ngIf="item.column_name === 'back_image'">
+                <a [href]="documentBackImage()" target="_blank" class="w-12 h-12 !rounded-md !bg-green-600 !text-white p-1">
+              <button>
+                بررسی فایل
+              </button>
+            </a>
+              </section>
+            </ng-template>
+          </span>
+            </li>
+          </ul>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <div class="w-full flex justify-end items-center space-x-3 mb-3" *ngIf="task().info.status == 'PENDING'">
+          <button matRipple matrap (click)="updateTaskStatus(true)"
+                  class="!text-green-500 !bg-green-100 p-3 rounded-md !mx-3">تایید کردن
+          </button>
+          <button matRipple matrap (click)="updateTaskStatus(false)" class="!text-red-500 !bg-red-100 p-3 rounded-md">رد
+            کردن
+          </button>
+        </div>
+      </mat-card-actions>
+      <mat-progress-bar mode="determinate" bufferValue="0" class="!rounded-full !-mt-1"></mat-progress-bar>
+    </mat-card>
+
+
+  </ng-container>
+
+  <ng-template #loading>
+    <div class="w-full h-full flex justify-center items-center">
+      <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="4" fill="var(--surface-ground)"
+                         animationDuration=".5s"></p-progressSpinner>
+    </div>
+  </ng-template>
+
+</section>

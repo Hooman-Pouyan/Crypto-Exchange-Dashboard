@@ -1,0 +1,73 @@
+<section class="p-3 flex justify-center items-center flex-col">
+  <div mat-dialog-actions class="flex justify-start items-center p-3">
+    <div mat-dialog-close class="text-red-600 mt-1 cursor-pointer" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </div>
+    <div mat-dialog-close class="mr-3">
+      لیست قیمت های مارکت
+    </div>
+  </div>
+  <ng-container *ngIf="loadData;else loading">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>جستجو</mat-label>
+      <input matInput (keyup)="search($event)"/>
+    </mat-form-field>
+    <div class="flex justify-between items-center w-full h-full mb-2" *ngFor="let item of prices">
+      <div class="flex flex-row-reverse justify-center items-center">
+        <span class="mr-2">{{ item[0] }}</span>
+        <span><img [src]="cdnUrl+'public/currencies/' + item[0].toLowerCase() + '.svg'" style="width: 29px"/></span>
+      </div>
+      <div class="flex flex-row-reverse justify-center items-center">
+        <p class="flex gap-1 align-center flex-row-reverse">
+          <span>{{ item[1]?.buy?item[1].buy:item[1]?.sell?item[1]?.sell:'' }}</span>
+          <small>usdt</small>
+        </p>
+      </div>
+    </div>
+
+  </ng-container>
+  <ng-template #loading>
+    <div class="w-full">
+      <div class="mb-2">
+        <p-skeleton height="3rem" width="100%"></p-skeleton>
+      </div>
+      <div class="mb-2">
+        <p-skeleton height="3rem" width="100%"></p-skeleton>
+      </div>
+      <div class="mb-2">
+        <p-skeleton height="3rem" width="100%"></p-skeleton>
+      </div>
+    </div>
+  </ng-template>
+  <!--  <div class="h-[80vh] overflow-y-scroll w-full">-->
+  <!--    <ng-container *ngIf="info | async; else loading">-->
+  <!--      <p-listbox [options]="(info | async)!" [(ngModel)]="searchedItem" optionLabel="symbol" [filter]="true"-->
+  <!--                 class="overflow-y-scroll">-->
+  <!--        <ng-template let-country pTemplate="item" class="overflow-hidden">-->
+  <!--          &lt;!&ndash;  &ndash;&gt;-->
+  <!--          <div class="flex justify-between items-center w-full h-full">-->
+  <!--            <div class="flex flex-row-reverse justify-center items-center">-->
+  <!--              <span class="mr-2">{{ country.symbol }}</span>-->
+  <!--              <span><img [src]="cdnUrl+'public/currencies/' + country.symbol.toLowerCase() + '.svg'"-->
+  <!--                         style="width: 29px"/></span>-->
+  <!--            </div>-->
+  <!--            <div class="flex flex-row-reverse justify-center items-center">-->
+  <!--              <span>-->
+  <!--                {{ country.price}}-->
+  <!--              </span>-->
+  <!--              <span class="text-blue-500 p-[3px] px-[7px] rounded-md bg-slate-100 ml-1">-->
+  <!--                {{" " + country.currency_base}}-->
+  <!--              </span>-->
+  <!--            </div>-->
+  <!--          </div>-->
+  <!--        </ng-template>-->
+  <!--      </p-listbox>-->
+  <!--    </ng-container>-->
+  <!--    <ng-template #loading>-->
+  <!--      <div class="w-full h-full flex justify-center items-center">-->
+  <!--        <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="4" fill="var(&#45;&#45;surface-ground)"-->
+  <!--                           animationDuration=".5s"></p-progressSpinner>-->
+  <!--      </div>-->
+  <!--    </ng-template>-->
+  <!--  </div>-->
+</section>

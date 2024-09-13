@@ -1,0 +1,33 @@
+<section class="p-5 mt-5">
+<p-fieldset class="!h-5">
+  <ng-template pTemplate="header" class="mr-5">
+      <div class="flex items-center text-primary">
+          <span class="pi pi-dollar ml-2"></span>
+          <span class="font-bold text-lg">قیمت دلار</span>
+      </div>
+  </ng-template>
+
+  <div class="h-full w-full" *ngIf="!loading(); else shimmer">
+<form [formGroup]="formGroup!" (onsubmit)="updateUsdPrice()" class="card flex justify-between items-center h-full w-full">
+  <div class="flex justify-start items-center h-full w-full">
+  <div>قیمت دلار اتومات باشد</div>
+  <div class="mr-5">
+    <p-inputSwitch [(ngModel)]="isAutomated" formControlName="status"></p-inputSwitch>
+  </div>
+  <ng-container *ngIf="!isAutomated">
+    <p-inputNumber [(ngModel)]="usdPrice" formControlName="price" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2" class="mr-5"> </p-inputNumber>
+  </ng-container>
+</div>
+<div>
+  <button type="submit" (click)="updateUsdPrice()" class="p-3 rounded-md bg-blue-600 text-white">آپدیت</button>
+</div>
+</form>
+  </div>
+
+<ng-template #shimmer>
+  <div class="w-full h-full bg-slate-300 rounded-md animate-ping a"></div>
+</ng-template>
+
+
+</p-fieldset>
+</section>

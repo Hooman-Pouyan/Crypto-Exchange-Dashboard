@@ -1,0 +1,23 @@
+<form class="p-5" (ngSubmit)="addAddress()" [formGroup]="addressForm">
+  <mat-form-field class="w-full" appearance="outline" dir="rtl">
+    <mat-label>{{'address' | translate}}</mat-label>
+    <input matInput formControlName="address">
+  </mat-form-field>
+
+  <mat-form-field class="w-full" appearance="outline" dir="rtl">
+    <mat-label>{{'status' | translate}}</mat-label>
+    <mat-select formControlName="status">
+      <mat-option [value]="true">{{'enable' | translate}}</mat-option>
+      <mat-option [value]="false">{{'disable' | translate}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="w-full">
+    <button [disabled]="disableForm" class="mb-3 w-full" mat-raised-button color="primary">
+      <mat-spinner *ngIf="disableForm" [diameter]="30" [color]="'accent'"></mat-spinner>
+      <span *ngIf="!disableForm">{{(formStatus === 'add' ? 'submit' : 'edit') | translate}}</span>
+    </button>
+    <button type="button" (click)="resetSignal()" [disabled]="disableForm" class="w-full" mat-dialog-close mat-raised-button
+            color="accent">{{'cancel' | translate}}</button>
+  </div>
+</form>

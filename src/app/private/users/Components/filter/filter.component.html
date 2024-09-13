@@ -1,0 +1,45 @@
+<div class="text-end mt-5 mb-2">
+  <button type="button" (click)="createUser()" mat-raised-button class="!bg-green-600 hover:!bg-green-700 !text-white">
+    <mat-icon>add</mat-icon>
+    {{translateService.instant('add new')}}
+  </button>
+</div>
+<form [formGroup]="filterForm" (ngSubmit)="saveForm()" class="mt-2">
+  <div class="lg:grid grid-cols-4 gap-4">
+    <mat-form-field class="w-full lg:w-auto">
+      <mat-label>{{'full_name' | translate}}</mat-label>
+      <input matInput type="text" formControlName="fullname" [(ngModel)]="fullname">
+    </mat-form-field>
+
+    <mat-form-field class="w-full lg:w-auto">
+      <mat-label>{{'mobile' | translate}}</mat-label>
+      <input matInput type="text" formControlName="mobile" [(ngModel)]="mobile">
+    </mat-form-field>
+
+    <mat-form-field class="w-full lg:w-auto">
+      <mat-label>{{('block' | translate)}}</mat-label>
+      <mat-select formControlName="blocked" [(ngModel)]="blocked">
+        <mat-option [value]="1">{{('blocked') | translate}}</mat-option>
+        <mat-option [value]="0">{{('enable') | translate}}</mat-option>
+      </mat-select>
+      <button *ngIf="blocked!=null" matSuffix mat-icon-button aria-label="Clear" (click)="blocked=null">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field class="w-full lg:w-auto">
+      <mat-label>{{('online_status' | translate)}}</mat-label>
+      <mat-select formControlName="online" [(ngModel)]="online">
+        <mat-option [value]="true">{{'online' | translate}}</mat-option>
+        <mat-option [value]="false">{{('offline') | translate}}</mat-option>
+      </mat-select>
+      <button *ngIf="online!=null" matSuffix mat-icon-button aria-label="Clear" (click)="online=null">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div class="w-full text-end">
+    <button class="mx-2" type="submit" mat-raised-button color="primary">{{'search' | translate}}</button>
+    <button type="submit" mat-raised-button color="accent" (click)="filterForm.reset()">ریست</button>
+  </div>
+</form>

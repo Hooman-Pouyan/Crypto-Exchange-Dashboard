@@ -1,0 +1,62 @@
+<div class="lg:grid grid-cols-4 gap-4 mt-3" *ngIf="loadData();else loading">
+  <mat-card class="example-card mb-3 relative" *ngFor="let app of apps()">
+    <mat-card-header>
+      <mat-card-title>
+        <div class="flex">
+          <span class="app-icon">{{getFirstChar(app.name)}}</span>
+          <div>
+            <span class="block">{{app.name}}</span>
+            <small class="block">{{app.type}}</small>
+          </div>
+        </div>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="pt-5">
+        <ul class="app-feature">
+          <li>
+            <p class="mb-2">
+              <span class="font-bold">{{'last version name' | translate}}: </span>
+              <span class="text-gray-600 text-sm">{{app.version}}</span>
+            </p>
+          </li>
+          <li>
+            <p class="mb-2">
+              <span class="font-bold">{{'last update at' | translate}}: </span>
+              <span class="text-gray-600 text-sm">{{app.updated_at}}</span>
+            </p>
+          </li>
+          <li>
+            <p class="mb-2">
+              <span class="font-bold">{{'create at' | translate}}:  </span>
+              <span class="text-gray-600 text-sm">{{app.created_at}}</span>
+            </p>
+          </li>
+        </ul>
+      </div>
+
+      <mat-divider></mat-divider>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [routerLink]="'versions/'+app.id">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="copy_all"></mat-icon>
+        {{'version' | translate}}
+      </button>
+      <button mat-raised-button class="ms-4" color="warn" [routerLink]="'translations/'+app.id">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="translate"></mat-icon>
+        {{'translations' | translate}}
+      </button>
+    </mat-card-actions>
+    <mat-card-footer>
+      <mat-progress-bar mode="determinate" class="absolute bottom-0"></mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
+
+</div>
+
+<ng-template #loading>
+<div class="grid lg:grid-cols-4 gap-3 mt-3">
+    <p-skeleton *ngFor="let item of [].constructor(8)" height="10rem">
+    </p-skeleton>
+</div>
+</ng-template>

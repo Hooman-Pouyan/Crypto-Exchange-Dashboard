@@ -1,0 +1,8 @@
+<ng-container *ngIf="!loading();else shimmer">
+  <span [classList]="mainStatus()+ ' '+statusClass()" class="!cursor-pointer" (click)="isBlocked() ? unblock() : block()">{{status}}
+  </span>
+</ng-container>
+
+<ng-template #shimmer>
+  <div class="w-1/2 h-2/3 rounded-md mt-2 bg-slate-200 animate-pulse"></div>
+</ng-template>

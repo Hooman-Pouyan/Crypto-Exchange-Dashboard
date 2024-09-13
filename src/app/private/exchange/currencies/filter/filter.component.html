@@ -1,0 +1,57 @@
+<form [formGroup]="filterForm" (ngSubmit)="saveForm()" class="mt-2">
+  <div class="text-end mb-2">
+    <button type="button" routerLink="add" mat-raised-button class="!bg-green-600 hover:!bg-green-700 !text-white">
+      <mat-icon>add</mat-icon>
+      {{translateService.instant('add new')}}
+    </button>
+  </div>
+  <div class="grid lg:grid-cols-4 grid-cols-1 lg:gap-4">
+    <mat-form-field>
+      <mat-label>{{translate('full_name')}}</mat-label>
+      <mat-select formControlName="name" [(ngModel)]="name">
+        <mat-option *ngFor="let currency of currencies()" [value]="currency.name">{{currency.name}}</mat-option>
+      </mat-select>
+      <button *ngIf="name" matSuffix mat-icon-button aria-label="Clear" (click)="name=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{translate('symbol')}}</mat-label>
+      <mat-select formControlName="symbol" [(ngModel)]="symbol">
+        <input (keyup)="filterResult($event)" id="filterBox" class="w-full" [placeholder]="'search' | translate">
+        <mat-option *ngFor="let currency of filteredCurrencies()" [value]="currency.symbol">{{currency.slug}}</mat-option>
+      </mat-select>
+      <button *ngIf="symbol" matSuffix mat-icon-button aria-label="Clear" (click)="symbol=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{translate('symbol_type')}}</mat-label>
+      <mat-select formControlName="unit" [(ngModel)]="unit">
+        <mat-option [value]="'fiat'">{{translate('Currency.unit.fiat')}}</mat-option>
+        <mat-option [value]="'crypto'">{{translate('Currency.unit.crypto')}}</mat-option>
+        <mat-option [value]="'electronic'">{{translate('Currency.unit.electronic')}}</mat-option>
+      </mat-select>
+      <button *ngIf="unit" matSuffix mat-icon-button aria-label="Clear" (click)="unit=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{translate('status')}}</mat-label>
+      <mat-select formControlName="status" [(ngModel)]="status">
+        <mat-option [value]="1">{{translate('enable')}}</mat-option>
+        <mat-option [value]="0">{{translate('disable')}}</mat-option>
+      </mat-select>
+      <button *ngIf="status!=null" matSuffix mat-icon-button aria-label="Clear" (click)="status=null">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div class="w-full text-end">
+    <button class="me-2" mat-raised-button color="primary">{{translateService.instant('search')}}</button>
+    <button type="submit" mat-raised-button color="accent" (click)="filterForm.reset()">ریست</button>
+  </div>
+</form>

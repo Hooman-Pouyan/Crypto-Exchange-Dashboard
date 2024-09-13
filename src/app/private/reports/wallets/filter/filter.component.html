@@ -1,0 +1,10 @@
+  <mat-form-field dir="rtl" class="w-full">
+    <mat-label>{{'currency' | translate}}</mat-label>
+    <mat-select [(ngModel)]="currency" (ngModelChange)="changeCurrency($event)">
+      <input (keyup)="searchCurrency($event)" id="filterBox" class="w-full" [placeholder]="'search' | translate">
+      <mat-option *ngFor="let currency of filteredCurrencies" [value]="currency.currency">{{currency.currency}}</mat-option>
+    </mat-select>
+    <button *ngIf="currency" matSuffix mat-icon-button aria-label="Clear" (click)="resetSearch()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>

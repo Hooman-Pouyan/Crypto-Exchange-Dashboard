@@ -1,0 +1,80 @@
+<section class="p-5">
+
+  <h1 class="p-3">ایجاد سطح جدید</h1>
+
+<form [formGroup]="clubForm" (ngSubmit)="onSubmit()" class="grid lg:grid-cols-3 lg:gap-3 justify-start items-center lg:p-5">
+  <mat-tab-group class="!w-full">
+    <mat-tab label="First">
+      <mat-form-field appearance="outline" class="!w-full">
+        <mat-label>اسم</mat-label>
+        <input matInput formControlName="descriptions">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="!w-full">
+        <mat-label>توضیحات</mat-label>
+        <input matInput formControlName="descriptions">
+      </mat-form-field>
+    </mat-tab>
+    <mat-tab label="Second">
+      <mat-form-field appearance="outline" class="!w-full">
+        <mat-label>name</mat-label>
+        <input matInput formControlName="descriptions">
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="!w-full">
+        <mat-label>descriptions</mat-label>
+        <input matInput formControlName="descriptions">
+      </mat-form-field>
+    </mat-tab>
+  </mat-tab-group>
+  <mat-form-field appearance="outline" class="!w-full" class="!w-full">
+    <mat-label>کف امتیاز</mat-label>
+    <input matInput formControlName="poan_from">
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="!w-full">
+    <mat-label>سقف امتیاز</mat-label>
+    <input matInput formControlName="poan_to">
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="!w-full">
+    <mat-label>درصد تخفیف کارمزد</mat-label>
+    <input matInput formControlName="fee_percent_discount">
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="!w-full">
+    <mat-label>سقف واریز در روز</mat-label>
+    <input matInput formControlName="max_deposit_day">
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="!w-full">
+    <mat-label>سقف واریز در ماه</mat-label>
+    <input matInput formControlName="max_deposit_month">
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="!w-full">
+    <mat-label>سقف برداشت در روز</mat-label>
+    <input matInput formControlName="max_withdraw_day">
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="!w-full">
+    <mat-label>سقف برداشت در ماه</mat-label>
+    <input matInput formControlName="max_withdraw_month">
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="!w-full">
+    <mat-label>درصد کارمزد</mat-label>
+    <input matInput formControlName="commission_percent">
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="!w-full">
+    <mat-label>وضعیت</mat-label>
+    <mat-select matInput formControlName="status">
+      <mat-option value="true">فعال</mat-option>
+      <mat-option value="false">غیر  فعال</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="flex items-center">
+    <button mat-raised-button color="primary" type="submit">ثبت</button>
+    <div mat-dialog-actions class="!flex !justify-end !items-center">
+      <button type="button" mat-raised-button mat-dialog-close color="warn">برگشت</button>
+    </div>
+  </div>
+</form>
+
+
+
+</section>
+<mat-progress-bar mode="determinate" bufferValue="0" class="!rounded-full !-mt-1"></mat-progress-bar>
+

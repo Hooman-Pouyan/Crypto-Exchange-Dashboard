@@ -1,0 +1,64 @@
+<form [formGroup]="filterForm" (ngSubmit)="saveForm()" class="mt-2">
+  <div class="grid lg:grid-cols-4 lg:gap-4">
+    <mat-form-field>
+      <mat-label>{{translateService.instant('name')}}</mat-label>
+      <input matInput formControlName="user"/>
+    </mat-form-field>
+
+    <mat-form-field class="w-full lg:w-auto">
+      <mat-label>{{'mobile' | translate}}</mat-label>
+      <input matInput type="text" formControlName="mobile" [(ngModel)]="mobile">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{translateService.instant('status')}}</mat-label>
+      <mat-select formControlName="status" [(ngModel)]="status">
+        <mat-option [value]="-2">{{translateService.instant('FAILED')}}</mat-option>
+        <mat-option [value]="-1">{{translateService.instant('REJECTED')}}</mat-option>
+        <mat-option [value]="0">{{translateService.instant('PENDING')}}</mat-option>
+        <mat-option [value]="2">{{translateService.instant('IN_PROCESS')}}</mat-option>
+        <mat-option [value]="4">{{translateService.instant('RELEASE')}}</mat-option>
+        <mat-option [value]="-3">{{translateService.instant('CANCELED')}}</mat-option>
+        <mat-option [value]="5">{{translateService.instant('PART_DEAL')}}</mat-option>
+        <mat-option [value]="8">{{translateService.instant('AWAITING_CONFIRMATION')}}</mat-option>
+      </mat-select>
+      <button *ngIf="status!=null" matSuffix mat-icon-button aria-label="Clear" (click)="status=null">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{translateService.instant('from amount')}}</mat-label>
+      <input matInput formControlName="from_amount"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{translateService.instant('to amount')}}</mat-label>
+      <input matInput formControlName="to_amount"/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput (dateChange)="onDateChanged('from')" [matDatepicker]="pickerFromDate" placeholder="-- / -- / ----"
+             [(ngModel)]="fromDate" formControlName="from_date">
+      <mat-datepicker-toggle matSuffix [for]="pickerFromDate"></mat-datepicker-toggle>
+      <mat-datepicker #pickerFromDate></mat-datepicker>
+      <button *ngIf="fromDate" matSuffix mat-icon-button aria-label="Clear" (click)="fromDate=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput (dateChange)="onDateChanged('to')" [matDatepicker]="pickerToDate" placeholder="-- / -- / ----"
+             [(ngModel)]="toDate" formControlName="to_date">
+      <mat-datepicker-toggle matSuffix [for]="pickerToDate"></mat-datepicker-toggle>
+      <mat-datepicker #pickerToDate></mat-datepicker>
+      <button *ngIf="toDate" matSuffix mat-icon-button aria-label="Clear" (click)="toDate=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <div class="w-full text-end">
+      <button class="me-2" type="submit" mat-raised-button color="primary">{{translateService.instant('search')}}</button>
+      <button type="submit" mat-raised-button color="accent" (click)="filterForm.reset()">ریست</button>
+    </div>
+  </div>
+</form>

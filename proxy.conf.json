@@ -1,0 +1,7 @@
+{
+  "/api": {
+    "target": "/api/mvc/",
+    "secure": true,
+    "changeOrigin": true
+  }
+}

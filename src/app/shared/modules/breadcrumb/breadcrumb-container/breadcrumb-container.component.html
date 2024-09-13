@@ -1,0 +1,7 @@
+<div class="relative card flex align-center mt-5 bg-slate-100 bg-opacity-10 flex-row-reverse justify-between overflow-auto" *ngIf="items().length>1">
+  <button (click)="back()" class="cursor-pointer me-2" id="backIcon" mat-raised-button>
+    <mat-icon fontIcon="chevron_left"></mat-icon>
+    <span>{{'back' | translate}}</span>
+  </button>
+  <p-breadcrumb class="max-w-full" [model]="items()" [home]="home"></p-breadcrumb>
+</div>

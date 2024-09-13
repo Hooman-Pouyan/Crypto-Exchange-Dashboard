@@ -1,0 +1,29 @@
+:host ::ng-deep .p-fieldset-content {
+  height: 100px;
+}
+
+:host ::ng-deep .item {
+
+  display: none;
+
+}
+
+:host ::ng-deep .p-fieldset-legend {
+  margin-right: 10px;
+}
+
+.a {
+  animation: shimmer 0.3s ease-in-out 1;
+}
+
+@keyframes shimmer {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}

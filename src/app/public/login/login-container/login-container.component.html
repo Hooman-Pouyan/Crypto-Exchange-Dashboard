@@ -1,0 +1,74 @@
+<section class="container flex justify-center items-center mx-auto rounded-lg w-screen h-screen relative">
+  <div
+    class="flex justify-center items-center w-full h-[80%] bg-slate-100 bg-opacity-10 rounded-2xl relative overflow-hidden shadow-md">
+    <div
+      class="flex-1 hidden lg:block z-20  w-full h-full bg-gradient-to-br from-indigo-600 to-green-800 blur-[2px]"></div>
+    <div class="flex-1">
+      <div class="login-form">
+        <button *ngIf="_LoginStep() != 1" mat-raised-button class="h-5 mr-7" (click)="goBack()">
+          <mat-icon fontIcon="edit"></mat-icon>
+          اصلاح شماره همراه
+        </button>
+        <div [ngSwitch]="_LoginStep()" class="mx-auto flex justify-center items-center mt-5">
+          <form [formGroup]="loginForm" (ngSubmit)="login()"
+                class="w-10/12 p-10 relative">
+            <div *ngSwitchCase="1" class="flex flex-col justify-center items-center space-y-1 !w-full mx-auto">
+              <mat-form-field>
+                <mat-label>کشور</mat-label>
+                <mat-select formControlName="mobile_prefix">
+                  <mat-option [value]="country.mobile_prefix" *ngFor="let country of countries$ | async">{{ country.name }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>شماره همراه</mat-label>
+                <input
+                  type="text"
+                  formControlName="mobile"
+                  matInput
+                  maxlength="10"
+                  [placeholder]="loginForm.get('mobile_prefix')!.value"/>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>رمز عبور</mat-label>
+                <input type="password" formControlName="hash" matInput/>
+              </mat-form-field>
+
+              <button
+                mat-raised-button
+                class="disabled:!bg-slate-500 disabled:!text-slate-300 !bg-indigo-600 !text-white"
+                type="submit"
+                [disabled]="loginForm.invalid"
+              >
+                ورود به پنل
+              </button>
+            </div>
+            <div *ngSwitchCase="2">
+              <div *ngFor="let option of securityOptions()" type="button" (click)="chooseOptAuthOption(option)"
+                   class="w-full z-50 h-12 bg-blue-500 bg-opacity-40 my-3 text-white rounded-md shadow-sm shadow-blue-500 p-3 cursor-pointer">
+                {{ "login." + option | translate}}
+              </div>
+            </div>
+            <div *ngSwitchCase="3">
+              <code-input
+                class="codeInput"
+                [isCodeHidden]="true"
+                [codeLength]="6"
+                (codeCompleted)="onCodeCompleted($event)">
+              </code-input>
+              <p class="countdown-timer" *ngIf="showTimer()">
+                <span>{{ secondsRemaining$ | async | date:'00:ss' }}</span>
+                مانده تا ارسال مجدد کد
+              </p>
+              <button type="button" class="mt-3 ms-3" mat-raised-button color="primary" *ngIf="!showTimer()">ارسال مجدد
+                کد
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <mat-progress-bar [mode]="nextStepLoading" class="!absolute !bottom-0 !left-0 w-full lg:!w-2/3"></mat-progress-bar>
+  </div>
+</section>

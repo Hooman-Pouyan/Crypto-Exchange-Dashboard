@@ -1,0 +1,69 @@
+<ng-container *ngIf="!loading$()" class="overflow-y-scroll">
+
+  <div class="bg-slate-200 flex flex-col h-full items-center p-5 w-full">
+    <section>
+      <div>
+        <div class="flex justify-between items-center">
+          <img src="" alt="" title="">
+        </div>
+        <div class="flex justify-between items-center">
+        </div>
+      </div>
+    </section>
+
+    <section class="w-full" style="overflow: auto;max-height: 90%;">
+      <div *ngFor="let comment of comments()" class="w-full flex items-center"
+           [ngClass]="comment.user_id == ticketDetail().user_id ? 'user' : 'operator'">
+        <div class="w-12 h-12">
+          <img class="w-full rounded-full" [src]="fileUrl + users()[comment.user_id].image.id" alt="" title="">
+        </div>
+        <div class="mt-5">
+          <div
+            class="fullname">{{(users()[comment.user_id].firstname + " " + users()[comment.user_id].lastname) | undefined}}</div>
+          <div class="message shadow-md border-4">
+            {{comment.text}}
+          </div>
+          <ng-container *ngIf="comment.attachments !== null">
+            <a class="download shadow-md" [href]="fileUrl + comment.attachments.id" target="_blank">
+              {{comment.attachments.file_name}}
+              <mat-icon>download</mat-icon>
+            </a>
+            <!-- <p>{{comment.attachments.size}}</p> -->
+          </ng-container>
+          <span class="date block ppt-2">
+          {{comment.created_at}}
+        </span>
+        </div>
+      </div>
+    </section>
+    <section class="w-2/3 p-3 absolute bottom-5">
+      <form [formGroup]="ticketForm" (ngSubmit)="replyTicket()"
+            class="w-full h-full bg-white flex flex-row-reverse justify-between items-center shadow-md rounded-md">
+        <input class="w-full !h-full border-0 outline-none a" type="text" formControlName="description_ticket">
+        <div class="flex justify-center items-center" *ngIf="!commentFile(); else attachments">
+          <label for="file-upload" class="custom-file-upload ml-3 cursor-pointer hover:text-blue-500">
+            <mat-icon>attach_file</mat-icon>
+          </label>
+          <input id="file-upload" type="file" (change)="onChangeFile($event)" class="hidden">
+        </div>
+        <ng-template #attachments>
+          <div class="flex justify-center items-center ml-3 relative">
+            <div class="text-red-600 text-[0.3px] absolute -top-3 -right-3 cursor-pointer"
+                 (click)="discardAttachments()">
+              <mat-icon>close</mat-icon>
+            </div>
+            <mat-icon>file_copy</mat-icon>
+          </div>
+        </ng-template>
+        <button type="submit" class="p-3 text-right bg-green-600 rounded-md rounded-r-none text-white">ارسال</button>
+      </form>
+    </section>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="loading$()">
+  <div class="w-full h-full flex justify-center items-center bg-slate-200">
+    <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="4" fill="var(--surface-ground)"
+                       animationDuration=".5s"></p-progressSpinner>
+  </div>
+</ng-container>

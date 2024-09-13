@@ -1,0 +1,25 @@
+:host ::ng-deep code-input {
+  --item-background: #ffffff;
+  --item-spacing: 10px;
+  --item-height: 4em;
+  --item-width: 8em;
+  --item-border: 1px solid gray;
+  --item-border-bottom: 1px solid gray;
+  --item-border-bottom-focused: 2px solid indigo !important;
+  --item-border-has-value: 2px solid #809079 !important;
+  --item-shadow-focused: none;
+  --item-border-radius: 5px;
+}
+
+.codeInput {
+  direction: ltr !important;
+}
+.countdown-timer{
+  padding: 10px 20px 0 0;
+  font-size: 12px;
+  span{
+    width: 40px;
+    display: inline-block;
+    text-align: center;
+  }
+}

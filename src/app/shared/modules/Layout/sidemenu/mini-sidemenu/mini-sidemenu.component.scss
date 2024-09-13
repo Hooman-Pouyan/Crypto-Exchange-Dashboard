@@ -1,0 +1,63 @@
+.Dashboard.active {
+  @apply bg-yellow-500 shadow-xl shadow-yellow-500
+
+}
+.Dashboard:hover {
+  @apply bg-yellow-500 shadow-xl shadow-yellow-500 text-slate-50
+
+}
+
+.users:hover {
+    @apply bg-green-500 shadow-xl shadow-green-500 text-slate-50
+}
+.users.active  {
+  @apply bg-green-500 shadow-xl shadow-green-500
+}
+
+.support:hover {
+    @apply bg-blue-500 shadow-xl shadow-blue-500 text-slate-50
+}
+.support.active  {
+  @apply bg-blue-500 shadow-xl shadow-blue-500
+}
+
+
+.exchange:hover {
+    @apply bg-orange-500 shadow-xl shadow-orange-500 text-slate-50;
+}
+.exchange.active  {
+  @apply bg-orange-500 shadow-xl shadow-orange-500;
+}
+
+
+.software:hover {
+    @apply bg-indigo-500 shadow-xl shadow-indigo-500 text-slate-50;
+}
+.software.active  {
+  @apply bg-indigo-500 shadow-xl shadow-indigo-500;
+}
+
+.reports:hover {
+  @apply bg-cyan-500 shadow-xl shadow-cyan-500 text-slate-50;
+}
+.reports.active  {
+@apply bg-cyan-500 shadow-xl shadow-cyan-500;
+}
+
+.Quit {
+  @apply bg-red-500 shadow-xl shadow-red-500;
+}
+
+.notif {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  width: 20px;
+  height: 20px;
+  background: rgb(34, 135, 237);
+  border-radius: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  @apply animate-pulse
+}

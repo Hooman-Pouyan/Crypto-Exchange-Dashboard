@@ -1,0 +1,47 @@
+.p-sidebar {
+  display: none !important;
+}
+
+.ali {
+  background-color: red;
+}
+
+:host ::ng-deep {
+
+  .p-divider {
+    @apply -mt-3 relative w-full
+  }
+
+  .p-divider::after {
+    content: '';
+    width: 16px;
+    height: 3px;
+    background: black;
+    position: absolute;
+    margin: 0px auto;
+    opacity: 0.2;
+    @apply animate-pulse
+
+  }
+
+  .p-menuitem-text {
+    @apply text-lg font-extrabold
+  }
+
+  .p-panelmenu-header:hover {
+    .p-menuitem-text {
+      @apply text-blue-600 transition-all duration-200;
+    }
+    .p-menuitem-icon {
+      @apply text-blue-600 transition-all duration-200;
+    }
+    .p-panelmenu-icon {
+      @apply text-blue-600 transition-all duration-200 animate-pulse;
+    }
+  }
+
+
+
+
+
+}

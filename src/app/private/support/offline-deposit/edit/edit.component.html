@@ -1,0 +1,68 @@
+<div class="p-5" *ngIf="depositDetail;else loading">
+
+  <div class="border border-1 p-2 rounded mb-5">
+    <ul class="mb-5">
+      <li>
+      <span>
+        <img [src]="cdnUrl+depositDetail?.image?.id"/>
+      </span>
+      </li>
+    </ul>
+
+    <h3 class="text-lg">اطلاعات کاربر:</h3>
+
+    <ul class="mb-5">
+      <li>
+        <span>نام و نام خانوادگی: {{depositDetail?.user?.name}}</span>
+      </li>
+      <li>
+        <span>شماره همراه: {{depositDetail?.user?.mobile}}</span>
+      </li>
+      <li>
+        <span>ایمیل: {{depositDetail?.user?.email}}</span>
+      </li>
+      <li>
+        <span>شماره کارت: {{depositDetail?.user_credit_cart?.card_number}}</span>
+      </li>
+      <li>
+        <span>نام بانک: {{depositDetail?.user_credit_cart?.bank_name}}</span>
+      </li>
+    </ul>
+
+    <h3 class="text-lg">اطلاعات حساب:</h3>
+
+    <ul class="mb-5">
+      <li>
+        <span>شماره حساب: {{depositDetail?.currency_account?.account_number}}</span>
+      </li>
+      <li>
+        <span>نام بانک: {{depositDetail?.currency_account?.bank_name}}</span>
+      </li>
+    </ul>
+  </div>
+
+  <mat-form-field appearance="outline" dir="rtl" class="w-full" *ngIf="status && status!=='accept'">
+    <mat-label>توضیحات</mat-label>
+    <textarea matInput [(ngModel)]="reason" name="reason"></textarea>
+  </mat-form-field>
+
+  <p>تعیین وضعیت: </p>
+  <mat-button-toggle-group class="mb-3" name="favoriteColor" aria-label="Favorite Color">
+    <mat-button-toggle class="success" value="red" (click)="status='accept'">تایید</mat-button-toggle>
+    <mat-button-toggle class="danger" value="green" (click)="status='reject'">رد</mat-button-toggle>
+    <mat-button-toggle class="danger" value="blue" (click)="status='modify'">برگشت وجه</mat-button-toggle>
+    <mat-button-toggle class="warning" value="blue" (click)="status='money'">برگشت جهت اصلاح</mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <div class="w-full flex gap-3">
+    <button mat-raised-button color="primary" (click)="submitForm()" [disabled]="!status">ثبت</button>
+    <button mat-raised-button color="warn" mat-dialog-close>بستن</button>
+  </div>
+</div>
+<ng-template #loading>
+  <div class="p-5 flex flex-col gap-3">
+    <p-skeleton height="10rem" width="100%"></p-skeleton>
+    <p-skeleton height="6rem" width="100%"></p-skeleton>
+    <p-skeleton height="2rem" width="100%"></p-skeleton>
+  </div>
+</ng-template>

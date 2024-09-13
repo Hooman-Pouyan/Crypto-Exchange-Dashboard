@@ -1,0 +1,47 @@
+version: "3"
+services:
+  exchange_megaex_admin_panel_service:
+    image: exchange_admin_panel_image:${VERSION_NO}
+    build:
+      context: ../
+      dockerfile: .devops/Dockerfile
+      args:
+        TZ: ${TZ}
+        BUILD_TYPE: ${BUILD_TYPE}
+    labels:
+      - autoheal=true
+
+      - traefik.enable=true
+      - traefik.docker.network=admin_panel_network
+
+      - traefik.http.routers.exchange_megaex_admin_panel_service.rule=Host(`${PUBLISH_ADMIN_SUBDOMAIN}${PUBLISH_ADMIN_DOMAIN}${PUBLISH_ADMIN_PREFIX}`)
+      - traefik.http.routers.exchange_megaex_admin_panel_service.entrypoints=websecure
+      - traefik.http.routers.exchange_megaex_admin_panel_service.tls.certresolver=letsencrypt
+      - traefik.http.routers.exchange_megaex_admin_panel_service.middlewares=http_middlewares
+
+      # - traefik.http.middlewares.exchange_admin_panel_service.ratelimit.average=10
+      # - traefik.http.middlewares.exchange_admin_panel_service.ratelimit.period=10s
+      # - traefik.http.middlewares.exchange_admin_panel_service.ratelimit.burst=1
+      # - traefik.http.middlewares.exchange_admin_panel_service.ratelimit.sourcecriterion.ipstrategy.excludedips=10.0.0.4
+      # - traefik.http.middlewares.exchange_admin_panel_service.ratelimit.sourcecriterion.requestheadername=X-Real-Ip
+      # - traefik.http.middlewares.exchange_admin_panel_service.ratelimit.sourcecriterion.requesthost=true
+
+
+    restart: always
+    networks:
+      - admin_panel_network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://127.0.0.1/80" ]
+      interval: ${DOCKER_HEALTHCHECK_INTERVAL}
+      timeout: ${DOCKER_HEALTHCHECK_TIMEOUT}
+      retries: ${DOCKER_HEALTHCHECK_RETRIES}
+      start_period: ${DOCKER_HEALTHCHECK_START_PERIOD}
+    logging:
+      driver: "syslog"
+      options:
+        syslog-address: "udp://193.200.148.124:62202"
+        tag: "pay-handler-logs"
+
+networks:
+  admin_panel_network:
+    external: true

@@ -1,0 +1,37 @@
+<section class="p-4">
+  <h3 class="mb-3">{{'add new translate' | translate}}</h3>
+  <form [formGroup]="translateForm" (ngSubmit)="addTranslate()" class="w-full">
+
+    <mat-form-field appearance="outline" class="w-full" dir="rtl">
+      <mat-label>{{'key' | translate}}</mat-label>
+      <input matInput formControlName="key">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full" dir="rtl">
+      <mat-label>{{'languages.persian' | translate}}</mat-label>
+      <input matInput formControlName="valueFa">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full" dir="rtl">
+      <mat-label>{{'languages.english' | translate}}</mat-label>
+      <input matInput formControlName="valueEn">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full" dir="rtl">
+      <mat-label>{{'languages.turkey' | translate}}</mat-label>
+      <input matInput formControlName="valueTr">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full" dir="rtl">
+      <mat-label>{{'languages.arabic' | translate}}</mat-label>
+      <input matInput formControlName="valueAr">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" [disabled]="translateForm.disabled">
+      <mat-spinner *ngIf="translateForm.disabled" [diameter]="30" [color]="'accent'"></mat-spinner>
+      <span *ngIf="!translateForm.disabled">{{'submit' | translate}}</span>
+    </button>
+    <button type="button" [disabled]="translateForm.disabled" mat-raised-button color="accent" mat-dialog-close class="ms-3">{{'cancel' | translate}}</button>
+
+  </form>
+</section>

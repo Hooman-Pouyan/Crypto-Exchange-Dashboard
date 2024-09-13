@@ -1,0 +1,12 @@
+.mat-button-toggle-checked {
+  &.danger{
+    background-color: #c9051c;
+    color: #fff;
+  }
+  &.success{
+    background-color: #04e0a5;
+  }
+  &.warning{
+    background-color: rgba(229, 225, 6, 0.99);
+  }
+}

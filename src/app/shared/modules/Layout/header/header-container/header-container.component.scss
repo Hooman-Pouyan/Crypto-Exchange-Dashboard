@@ -1,0 +1,49 @@
+:host ::ng-deep {
+
+  .p-toolbar {
+    margin-top: 20px;
+    direction: ltr;
+    padding: 8px;
+    padding-bottom: 10px;
+  }
+
+
+  .p-menubar {
+    font-size: 1rem !important;
+  }
+
+  .p-menuitem {
+    padding: 0 !important;
+  }
+
+  @media (max-width: 992px) {
+    .p-toolbar-group-end {
+      width:100%;
+      justify-content: end;
+    }
+    .p-toolbar-group-start {
+      text-align: right;
+      order: 1;
+      display: block;
+      width: 100%;
+
+      p-button {
+        width: 100%;
+        display: block;
+        margin-bottom: 10px;
+
+        button {
+          display: block;
+          width: 100%;
+        }
+      }
+
+      p-splitbutton {
+        margin:0;
+        .p-splitbutton {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

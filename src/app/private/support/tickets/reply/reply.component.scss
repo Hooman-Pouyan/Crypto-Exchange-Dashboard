@@ -1,0 +1,53 @@
+
+.operator {
+  text-align: left;
+  justify-content: end;
+  flex-direction: row-reverse;
+
+  .message {
+    @apply p-3 rounded-xl rounded-tr-none bg-green-600 text-slate-50 mr-2
+
+  }
+
+  .fullname {
+    @apply mr-3 text-right text-slate-500 text-sm font-sans antialiased italic font-semibold
+  }
+
+  .download {
+    @apply text-sm p-3 flex justify-between items-center bg-green-600 border-2 mt-2 mr-2 text-white rounded-lg border-white
+  }
+
+  .date {
+    @apply pr-5 text-right
+  }
+
+}
+
+
+.user {
+  text-align: right;
+  justify-content: start;
+
+  .message {
+    @apply p-3 rounded-xl rounded-tl-none bg-blue-600 text-slate-50 ml-2
+  }
+
+  .fullname {
+    @apply ml-3 text-left text-slate-500 text-sm font-sans antialiased italic font-semibold
+  }
+
+  .download {
+    @apply text-sm p-3 flex justify-between items-center bg-blue-600 border-2 mt-2 ml-2 text-white rounded-lg border-white
+  }
+
+  .date {
+    @apply text-left pl-5
+  }
+
+}
+
+.a {
+  direction: rtl;
+  padding-right: 15px;
+}
+

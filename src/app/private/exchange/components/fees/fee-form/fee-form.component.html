@@ -1,0 +1,60 @@
+<form [formGroup]="feeForm" (ngSubmit)="onSubmit()" class="flex flex-col justify-start items-center p-5">
+  <mat-form-field appearance="outline">
+    <mat-label>فی</mat-label>
+    <input matInput formControlName="fee">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>عملیات</mat-label>
+    <mat-select formControlName="action_type" #action_type>
+      <div *ngIf="feeForm.get('symbol_type')?.value == 'currency';else pairCurrenciesActions">
+        <mat-option [value]="'withdraw' ">برداشت</mat-option>
+        <mat-option [value]="'deposit'">واریز</mat-option>
+        <mat-option [value]="'fast'">معامله سریع</mat-option>
+      </div>
+      <ng-template #pairCurrenciesActions>
+        <mat-option [value]="'trade_taker'">گیرنده</mat-option>
+        <mat-option [value]="'trade_maker'">سازنده</mat-option>
+      </ng-template>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" *ngIf="action_type.value == 'trade_maker' || action_type.value == 'trade_taker'">
+    <mat-label>بازار</mat-label>
+    <mat-select formControlName="market">
+      <mat-option *ngFor="let market of markets" [value]="market.key">{{market.key}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>سقف روزانه</mat-label>
+    <input matInput formControlName="daily_limit">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>سقف هفتگی</mat-label>
+    <input matInput formControlName="weekly_limit">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>سقف ماهانه</mat-label>
+    <input matInput formControlName="monthly_limit">
+  </mat-form-field>
+
+  <mat-form-field class="w-full" appearance="outline" dir="rtl">
+    <mat-label>{{'status' | translate}}</mat-label>
+    <mat-select formControlName="blocked">
+      <mat-option [value]="true">{{'block' | translate}}</mat-option>
+      <mat-option [value]="false">{{'not blocked' | translate}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="flex items-center">
+    <button mat-raised-button color="primary"
+            type="submit">{{(formStatus === 'add' ? 'submit' : 'edit') | translate}}</button>
+    <div mat-dialog-actions class="!flex !justify-end !items-center">
+      <button type="button" (click)="resetSignal()" mat-raised-button mat-dialog-close
+              color="warn">{{'cancel' | translate}}</button>
+    </div>
+  </div>
+
+</form>

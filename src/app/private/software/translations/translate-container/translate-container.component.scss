@@ -1,0 +1,20 @@
+.submit-button {
+  height: 55px;
+  width: 120px
+}
+
+@media (max-width: 1023px) {
+  #filters {
+    padding-top: 60px;
+  }
+  #tree {
+    top: -60px;
+  }
+  .submit-button {
+    width: 49%;
+
+    &.second {
+      float: left;
+    }
+  }
+}

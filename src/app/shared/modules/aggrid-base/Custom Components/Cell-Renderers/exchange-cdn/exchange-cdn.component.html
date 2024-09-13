@@ -1,0 +1,13 @@
+<ul class="exchange">
+  <li>
+    <img [matTooltip]="depositTooltip?depositTooltip:coinName?coinName:sourceCoin" [src]="cdnUrl+'public/currencies/'+sourceCoin+'.svg'" width="30"/>
+    <span>{{coinName}}</span>
+  </li>
+  <li *ngIf="originCoin">
+<!--    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>-->
+    <img src="assets/icons/chevron-right.png" class="rotate-180" width="20" alt=""/>
+  </li>
+  <li *ngIf="originCoin">
+    <img [matTooltip]="coinName?coinName:originCoin" [src]="cdnUrl+'public/currencies/'+originCoin+'.svg'" width="30"/>
+  </li>
+</ul>

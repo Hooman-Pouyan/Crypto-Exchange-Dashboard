@@ -1,0 +1,10 @@
+<mat-paginator #paginator
+               class="demo-paginator !text-right !flex !justify-start items-center"
+               (page)="handlePageEvent($event)"
+               [length]="length"
+               [pageSize]="pageSize"
+               [showFirstLastButtons]="showFirstLastButtons"
+               [pageIndex]="pageIndex"
+               [hidePageSize]="hidePageSize"
+               aria-label="Select page">
+</mat-paginator>

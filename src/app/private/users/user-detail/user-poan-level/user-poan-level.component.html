@@ -1,0 +1,20 @@
+<section class="flex justify-center items-center p-5">
+  <div class="flex flex-col justify-center items-center">
+<div class="card flex justify-content-center" *ngIf="!loading(); else loadingTemplate">
+  <p-knob [(ngModel)]="value" class="cursor-pointer" [valueColor]="ValueColor[value-1]" [strokeWidth]="5"
+          [size]="200" [min]="0" [max]="5" [step]="1" [valueTemplate]="'levels.' + poanLevels[value-1] | translate">
+  </p-knob>
+</div>
+<div class="flex justify-center items-center">
+  <button mat-raised-button (click)="onLevelSubmit()" color="primary">آپدیت</button>
+</div>
+  </div>
+
+  <ng-template #loadingTemplate>
+    <section class="p-3">
+    <div class="w-44 h-44 rounded-full animate-pulse bg-slate-300 flex justify-center items-center">
+      <div class="w-36 h-36 mt-10 bg-white rounded-full"></div>
+    </div>
+  </section>
+  </ng-template>
+</section>

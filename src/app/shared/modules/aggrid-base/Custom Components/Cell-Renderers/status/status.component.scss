@@ -1,0 +1,17 @@
+.status {
+  border-radius: 5px;
+  padding: 2px 10px;
+
+  &.success {
+    background: #E5F8ED;
+    color: #39CB7A;
+  }
+  &.warning{
+    background: #FFF3E8;
+    color: #FFAB5B;
+  }
+  &.danger{
+    background: #f35c5c;
+    color: #ffffff;
+  }
+}

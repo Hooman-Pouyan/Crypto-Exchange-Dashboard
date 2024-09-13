@@ -1,0 +1,257 @@
+<section class="mt-5">
+  <div class="card mt-5">
+
+    <p-tabView class="!min-h-[50px]">
+      <p-tabPanel header="عمومی" class="!min-h-[50px]">
+
+        <div class="flex justify-between items-center">
+          <div>{{"withdrawsettings." + "MIN_BALANCE_BINANCE" | translate}}</div>
+          <div class="card flex justify-center items-center flex-row-reverse mt-5">
+            <div>
+              <input type="text" pInputText [(ngModel)]="MIN_BALANCE_BINANCE"/>
+            </div>
+            <div class="flex justify-center items-center">
+              <button (click)="onSubmit('MIN_BALANCE_BINANCE',MIN_BALANCE_BINANCE)"
+                      class="p-3 active:border-0 transition-all duration-200 bg-blue-600 text-white mx-3 rounded-md border-b-4 border-blue-400"
+                      mat-button>آپدیت
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <div>{{"withdrawsettings." + "MOBILE_NOTIFICATION_TO_MANAGER" | translate}}</div>
+          <div class="card flex justify-center items-center flex-row-reverse mt-5">
+            <div>
+              <input type="text" pInputText [(ngModel)]="MOBILE_NOTIFICATION_TO_MANAGER"/>
+            </div>
+            <div class="flex justify-center items-center">
+              <button (click)="onSubmit('MOBILE_NOTIFICATION_TO_MANAGER',MOBILE_NOTIFICATION_TO_MANAGER)"
+                      class="p-3 active:border-0 transition-all duration-200 bg-blue-600 text-white mx-3 rounded-md border-b-4 border-blue-400"
+                      mat-button>آپدیت
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <div>{{"withdrawsettings." + "EMAIL_NOTIFICATION_TO_MANAGER" | translate}}</div>
+          <div class="card flex justify-center items-center flex-row-reverse mt-5">
+            <div>
+              <input type="text" pInputText [(ngModel)]="EMAIL_NOTIFICATION_TO_MANAGER"/>
+            </div>
+            <div class="flex justify-center items-center">
+              <button (click)="onSubmit('EMAIL_NOTIFICATION_TO_MANAGER',EMAIL_NOTIFICATION_TO_MANAGER)"
+                      class="p-3 active:border-0 transition-all duration-200 bg-blue-600 text-white mx-3 rounded-md border-b-4 border-blue-400"
+                      mat-button>آپدیت
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center mt-5">
+          <div>{{"withdrawsettings." + "SEND_NOTIFICATION_WITHDRAW_TASK" | translate}}</div>
+          <form [formGroup]="withdrawNotification" class="flex justify-center items-center">
+            <div>
+              <p-selectButton (onChange)="onChange($event, 'withdrawNotification')" [options]="stateOptions"
+                              formControlName="status" optionLabel="label" optionValue="value"
+                              styleClass="a"></p-selectButton>
+            </div>
+          </form>
+        </div>
+
+      </p-tabPanel>
+
+      <p-tabPanel header="ارز">
+        <div class="flex justify-between items-center">
+          <div>{{"withdrawsettings." + "WITHDRAW_FIAT_MANAGER_CONFIRMATION" | translate}}</div>
+          <div class="card flex justify-content-center mt-5">
+            <form [formGroup]="withdrawFiatConfirm" class="flex justify-center items-center">
+              <div>
+                <p-selectButton (onChange)="onChange($event, 'withdrawFiatConfirm')" [options]="stateOptions"
+                                formControlName="status" optionLabel="label" optionValue="value"
+                                styleClass="a"></p-selectButton>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="flex justify-between items-center">
+          <div>{{"withdrawsettings." + "WITHDRAW_FIAT_CURRENCY_INTERFACE" | translate}}</div>
+          <div class="card flex justify-content-center mt-5">
+            <form [formGroup]="withdrawFiat" class="flex justify-center items-center">
+              <div class="custom-select">
+                <mat-form-field class="w-full" appearance="outline">
+                  <mat-select class="select-coin" [(ngModel)]="selectedFiat" formControlName="value"
+                              (selectionChange)="onChange(selectedFiat,'withdrawFiat')">
+                    <mat-select-trigger class="select-coin-trigger">
+                      <div class="flex items-center gap-1 justify-end">
+                        <mat-icon role="img"
+                                  class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color ng-star-inserted"
+                                  aria-hidden="true" data-mat-icon-type="font">expand_more
+                        </mat-icon>
+                        <span class="coin-price-value">{{selectedFiat}}</span>
+                        <img class="rounded-full"
+                             [src]="cdnUrl+'public/currencies/'+selectedFiat.toLowerCase()+'.svg'"
+                             width="30"/>
+                      </div>
+                    </mat-select-trigger>
+                    <mat-option *ngFor="let coin of fiats;let i=index" [value]="coin.symbol">
+                      <div class="flex items-center gap-1 justify-end">
+                        <span class="coin-price-value">{{coin.symbol}}</span>
+                        <img [src]="cdnUrl+'public/currencies/'+coin.symbol.toLowerCase()+'.svg'" width="30"/>
+                      </div>
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+<!--                <p-dropdown formControlName="value" (onChange)="onChange(withdrawFiat,'withdrawFiat')" [options]="fiats"-->
+<!--                            optionLabel="symbol" [filter]="true" filterBy="symbol"-->
+<!--                            [showClear]="false" placeholder="لیست ارز ها">-->
+<!--                  <ng-template pTemplate="selectedItem">-->
+<!--                    <div class="flex items-center justify-center" *ngIf="selectedCountry">-->
+<!--                      <img [src]="cdnUrl+'public/currencies/'+ selectedCountry.symbol.toLowerCase() +'.svg'"-->
+<!--                           width="16px"/>-->
+<!--                      <div>{{ selectedCountry.symbol }}</div>-->
+<!--                    </div>-->
+<!--                  </ng-template>-->
+<!--                  <ng-template let-country pTemplate="item">-->
+<!--                    <div class="flex align-items-center gap-2">-->
+<!--                      <img [src]="cdnUrl+'public/currencies/'+ country.symbol.toLowerCase() +'.svg'" width="16px"/>-->
+<!--                      <div>{{ country.symbol }}</div>-->
+<!--                    </div>-->
+<!--                  </ng-template>-->
+<!--                </p-dropdown>-->
+              </div>
+              <!-- <div>
+                <button type="submit">اعمال</button>
+              </div> -->
+            </form>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <div>{{"withdrawsettings." + "MAX_WITHDRAW_FIAT" | translate}}</div>
+          <div class="card flex justify-content-center mt-5">
+            <form [formGroup]="maxWithdrawFiat" class="flex justify-center items-center">
+              <div>
+                <input type="text" (onChange)="onChange($event, 'maxWithdrawFiat')" pInputText formControlName="value"
+                       class="ml-2"/>
+              </div>
+              <div>
+                <p-selectButton (onChange)="onChange($event, 'maxWithdrawFiat')" [options]="stateOptions"
+                                formControlName="status" optionLabel="label" optionValue="value"
+                                styleClass="a"></p-selectButton>
+              </div>
+              <!-- <div>
+                <button type="submit">اعمال</button>
+              </div> -->
+            </form>
+          </div>
+        </div>
+
+      </p-tabPanel>
+      <p-tabPanel header="رمز ارز">
+        <div class="flex justify-between items-center">
+          <div>{{"withdrawsettings." + "WITHDRAW_FIAT_MANAGER_CONFIRMATION" | translate}}</div>
+          <div class="card flex justify-content-center mt-5">
+            <form [formGroup]="withdrawCryptoConfirm" class="flex justify-center items-center">
+              <div>
+                <p-selectButton (onChange)="onChange($event, 'withdrawCryptoConfirm')" [options]="stateOptions"
+                                formControlName="status" optionLabel="label" optionValue="value"
+                                styleClass="a"></p-selectButton>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <div>{{"withdrawsettings." + "WITHDRAW_CRYPTO_CURRENCY_CURRENCY_INTERFACE" | translate}}</div>
+          <div class="card flex justify-content-center mt-5">
+            <form [formGroup]="withdrawCrypto" class="">
+              <div class="custom-select">
+                <mat-form-field class="w-full" appearance="outline">
+                  <mat-select class="select-coin" [(ngModel)]="selectedCrypto" formControlName="value"
+                              (selectionChange)="onChange(selectedCrypto,'withdrawCrypto')">
+                    <mat-select-trigger class="select-coin-trigger">
+                      <div class="flex items-center gap-1 justify-end">
+                        <mat-icon role="img"
+                                  class="mat-icon notranslate material-icons mat-ligature-font mat-icon-no-color ng-star-inserted"
+                                  aria-hidden="true" data-mat-icon-type="font">expand_more
+                        </mat-icon>
+                        <span class="coin-price-value">{{selectedCrypto}}</span>
+                        <img class="rounded-full"
+                             [src]="cdnUrl+'public/currencies/'+selectedCrypto.toLowerCase()+'.svg'"
+                             width="30"/>
+                      </div>
+                    </mat-select-trigger>
+                    <mat-option *ngFor="let coin of cryptos;let i=index" [value]="coin.symbol">
+                      <div class="flex items-center gap-1 justify-end">
+                        <span class="coin-price-value">{{coin.symbol}}</span>
+                        <img [src]="cdnUrl+'public/currencies/'+coin.symbol.toLowerCase()+'.svg'" width="30"/>
+                      </div>
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+<!--              <div>-->
+<!--                <p-dropdown formControlName="value" (onChange)="onChange(withdrawCrypto,'withdrawCrypto')"-->
+<!--                            [options]="cryptos" optionLabel="symbol" [filter]="true" filterBy="symbol"-->
+<!--                            [showClear]="true" [placeholder]="withdrawCrypto.value.value.symbol">-->
+<!--                  <ng-template pTemplate="selectedCrypto">-->
+<!--                    <div class="flex align-items-center gap-2" *ngIf="selectedCrypto">-->
+<!--                      <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"-->
+<!--                           [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px"/>-->
+<!--                      <div>{{ selectedCrypto }}</div>-->
+<!--                    </div>-->
+<!--                  </ng-template>-->
+<!--                  <ng-template let-country pTemplate="item">-->
+<!--                    <div class="flex align-items-center gap-2">-->
+<!--                      <img [src]="cdnUrl+'public/currencies/'+ country.symbol.toLowerCase() +'.svg'" width="16px"/>-->
+<!--                      <div>{{ country.symbol }}</div>-->
+<!--                    </div>-->
+<!--                  </ng-template>-->
+<!--                </p-dropdown>-->
+<!--              </div>-->
+              <!-- <div>
+                <button type="submit">اعمال</button>
+              </div> -->
+            </form>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <div>{{"withdrawsettings." + "MAX_WITHDRAW_CRYPTO_CURRENCY" | translate}}</div>
+          <div class="card flex justify-content-center mt-5">
+            <form [formGroup]="maxWithdrawCrypto" class="flex justify-center items-center">
+              <div>
+                <input type="text" (onChange)="onChange($event, 'maxWithdrawCrypto')" pInputText formControlName="value"
+                       class="ml-2"/>
+              </div>
+              <div>
+                <p-selectButton (onChange)="onChange($event, 'maxWithdrawCrypto')" [options]="stateOptions"
+                                formControlName="status" optionLabel="label" optionValue="value"
+                                styleClass="a"></p-selectButton>
+              </div>
+              <!-- <div>
+                <button type="submit">اعمال</button>
+              </div> -->
+            </form>
+          </div>
+        </div>
+
+      </p-tabPanel>
+
+    </p-tabView>
+
+  </div>
+
+  <div>
+
+  </div>
+
+</section>
+
+
+
+

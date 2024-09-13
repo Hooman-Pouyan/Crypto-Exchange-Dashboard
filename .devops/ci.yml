@@ -1,0 +1,50 @@
+include:
+  - project: 'megaex-exchange/infrastructure-services/gitlab-management/gitlab-ci-cd-template'
+    rules:
+      - if: $CI_COMMIT_BRANCH == 'develop' ||  $CI_COMMIT_BRANCH == 'staging' || $CI_COMMIT_BRANCH == 'production'
+    ref: $CI_COMMIT_BRANCH
+    file:
+      - '/v1/base/ci-template.yml'
+      - '/v1/${CI_PROJECT_NAME}/${CI_PROJECT_ID}.yml'
+  - project: 'megaex-exchange/infrastructure-services/gitlab-management/gitlab-ci-cd-template'
+    rules:
+      - if: $CI_COMMIT_BRANCH != 'develop' && $CI_COMMIT_BRANCH != 'staging' && $CI_COMMIT_BRANCH != 'production'
+    ref: develop
+    file:
+      - '/v1/base/ci-template.yml'
+      - '/v1/${CI_PROJECT_NAME}/${CI_PROJECT_ID}.yml'
+
+stages:
+  - development-stage
+  - staging-stage
+  - production-stage
+
+development-stage:
+  stage: development-stage
+  rules:
+    - if: $CI_COMMIT_BRANCH != 'develop'
+      when: never
+    - if: $CI_COMMIT_BRANCH == 'develop'
+  extends:
+    - .public-definitions
+    - .private-definitions
+
+staging-stage:
+  stage: staging-stage
+  rules:
+    - if: $CI_COMMIT_BRANCH != 'staging'
+      when: never
+    - if: $CI_COMMIT_BRANCH == 'staging'
+  extends:
+    - .public-definitions
+    - .private-definitions
+
+production-stage:
+  stage: production-stage
+  rules:
+    - if: $CI_COMMIT_BRANCH != 'production'
+      when: never
+    - if: $CI_COMMIT_BRANCH == 'production'
+  extends:
+    - .public-definitions
+    - .private-definitions

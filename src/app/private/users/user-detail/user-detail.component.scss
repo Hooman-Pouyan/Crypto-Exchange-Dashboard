@@ -1,0 +1,24 @@
+@media (max-width: 992px) {
+  ::ng-deep {
+    .p-tabmenu-nav {
+      display: block !important;
+
+      li {
+        display: block !important;
+        width: 100% !important;
+
+        a {
+          border: none !important
+        }
+      }
+    }
+  }
+  .card-head {
+    padding: 0 !important;
+  }
+}
+
+
+.a {
+  display: none;
+}

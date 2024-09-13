@@ -1,0 +1,32 @@
+
+<section *ngIf="isToolbarActivated(); else header">
+  <p-toolbar>
+    <div class="p-toolbar-group-start">
+      <p-button label="ایجاد" icon="pi pi-plus" styleClass="p-button-info " class="mr-2 w-full lg:w-auto" (onClick)="onAction('create')"></p-button>
+      <p-button label="سینک" icon="pi pi-upload" styleClass="p-button-success" (onClick)="onAction('sync')"></p-button>
+      <p-splitButton label="ویرایش" icon="pi pi-edit" [model]="toolbarItems" class="ms-2" styleClass="p-button-warning" (onClick)="onAction('update')"></p-splitButton>
+      <i class="p-toolbar-separator pi pi-bars mr-2" style="vertical-align: middle"></i>
+    </div>
+    <div class="p-toolbar-group-end">
+    <p-button icon="pi pi-search" styleClass="p-button-info" class="mr-2" (onClick)="onAction('search')"></p-button>
+      <p-button icon="pi pi-calendar" styleClass="p-button-success mr-2" (onClick)="onAction('calender')"></p-button>
+      <p-button icon="pi pi-times" styleClass="p-button-danger" (onClick)="onAction('close')"></p-button>
+    </div>
+  </p-toolbar>
+  <mat-progress-bar mode="determinate" bufferValue="0" class="!rounded-full !-mt-1"></mat-progress-bar>
+</section>
+
+
+<ng-template #header>
+<div class="card mt-5 !text-md">
+  <p-menubar [model]="menuItems">
+    <ng-template pTemplate="start">
+      <img
+        src="https://primefaces.org/cdn/primeng/images/primeng.svg"
+        height="40"
+        class="mr-2"
+        alt="" />
+    </ng-template>
+  </p-menubar>
+</div>
+</ng-template>

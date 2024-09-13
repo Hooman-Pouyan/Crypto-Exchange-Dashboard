@@ -1,0 +1,9 @@
+<app-aggrid-container class="w-full"
+                      [DataSource]="(tableSource | async)!"
+                      [IColDefs]="IColDefs"
+                      [length]="totalData()"
+                      [loadingStatus]="refreshMode()"
+                      (_pageChange)="pageChange($event)"
+                      (cellClicked)="cellClicked($event)"
+                      [_refreshRows]="_refreshRows()"
+></app-aggrid-container>

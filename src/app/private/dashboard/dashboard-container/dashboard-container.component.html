@@ -1,0 +1,28 @@
+<mat-drawer-container class="example-container bg-transparent">
+  <div class="example-sidenav-content">
+    <section class="header w-11/12 h-full mx-auto">
+      <app-header-container></app-header-container>
+      <app-breadcrumb-container></app-breadcrumb-container>
+      <router-outlet></router-outlet>
+    </section>
+  </div>
+
+  <section appSideMenuOverToggle [isSideMenuActive]="checked">
+  <mat-drawer #drawer class="example-sidenav !overflow-y-hidden !p-0 relative !hidden xl:!block hover:!shadow-2xl" [ngClass]="sideMenuOpen() ? 'hide' : ''" mode="side" opened="true">
+
+      <!-- <div class="card flex justify-center items-center absolute bottom-0 right:1/2 w-full">
+        <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
+    </div> -->
+
+    <section class="sidemenu !overflow-hidden">
+      <ng-container class="main-sidemenu" *ngIf="!sideMenuOpen();else miniSideMenu">
+        <app-sidemenu-container (_toggleMenu)="toggleMenu()" class="!shadow-inner"></app-sidemenu-container>
+      </ng-container>
+      <ng-template #miniSideMenu>
+        <app-mini-sidemenu class="main-sidemenu w-full h-full bg-green-600" [newNotifs]="newNotifs()"></app-mini-sidemenu>
+      </ng-template>
+    </section>
+  </mat-drawer>
+</section>
+
+</mat-drawer-container>

@@ -1,0 +1,200 @@
+<form [formGroup]="form">
+
+
+  <section class="flex flex-col lg:flex-row justify-center">
+    <div class="w-full lg:w-9/12 lg:p-5 flex flex-col justify-center gap-y-5 mt-3 lg:mt-0">
+      <section class="name w-full h-fit">
+        <mat-card class="example-card">
+          <mat-card-header>
+            <mat-card-subtitle>{{translate.instant('specification')}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-divider></mat-divider>
+          <mat-card-content>
+            <div class="mt-2">
+              <div class="grid lg:grid-cols-2 lg:gap-2">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{translate.instant('network.network')}}</mat-label>
+                  <input matInput formControlName="network">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>{{translate.instant('Currency.default')}}</mat-label>
+                  <mat-select formControlName="currency">
+                    <mat-option *ngFor="let item of currencies()" [value]="item.symbol">{{item.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div class="grid lg:grid-cols-2 lg:gap-2">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{translate.instant('network.min_confirm')}}</mat-label>
+                  <input matInput formControlName="min_confirm">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>{{translate.instant('network.address_regex')}}</mat-label>
+                  <input matInput formControlName="address_regex">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>{{translate.instant('network.contract_address')}}</mat-label>
+                  <input matInput formControlName="contract_address">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>{{translate.instant('network.memo_regex')}}</mat-label>
+                  <input matInput formControlName="memo_regex">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>{{translate.instant('network.currency_precision')}}</mat-label>
+                  <input matInput formControlName="currency_precision">
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-content>
+          <mat-card-footer>
+            <mat-progress-bar mode="determinate" bufferValue="0"></mat-progress-bar>
+          </mat-card-footer>
+        </mat-card>
+      </section>
+
+      <div class="grid lg:grid-cols-2 lg:gap-2">
+        <section class="name w-full h-fit">
+          <mat-card class="example-card">
+            <mat-card-header>
+              <mat-card-subtitle>{{translate.instant('network.withdraw')}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+              <div class="mt-2">
+                <div class="grid grid-cols-2 mb-3 justify-between">
+                  <span>{{translate.instant('enable')}}</span>
+                  <mat-slide-toggle formControlName="withdraw_enable" class="text-end"></mat-slide-toggle>
+                </div>
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>{{translate.instant('network.withdraw_provider')}}</mat-label>
+                  <input matInput formControlName="withdraw_provider">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>{{translate.instant('network.withdraw_fee')}}</mat-label>
+                  <input matInput formControlName="withdraw_fee">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>{{translate.instant('network.withdraw_max')}}</mat-label>
+                  <input matInput formControlName="withdraw_max">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>{{translate.instant('network.withdraw_min')}}</mat-label>
+                  <input matInput formControlName="withdraw_min">
+                </mat-form-field>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </section>
+
+        <section class="name w-full h-fit">
+          <mat-card class="example-card">
+            <mat-card-header>
+              <mat-card-subtitle>{{translate.instant('network.deposit')}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+              <div class="mt-2">
+                <div class="grid grid-cols-2 mb-3 justify-between">
+                  <span>{{translate.instant('enable')}}</span>
+                  <mat-slide-toggle formControlName="deposit_enable" class="text-end"></mat-slide-toggle>
+                </div>
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>{{translate.instant('network.deposit_provider')}}</mat-label>
+                  <input matInput formControlName="deposit_provider">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>{{translate.instant('network.deposit_max')}}</mat-label>
+                  <input matInput formControlName="deposit_max">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>{{translate.instant('network.deposit_min')}}</mat-label>
+                  <input matInput formControlName="deposit_min">
+                </mat-form-field>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </section>
+
+      </div>
+      <section class="name w-full h-fit">
+        <mat-card class="example-card">
+          <mat-card-header>
+          </mat-card-header>
+          <mat-divider></mat-divider>
+          <mat-card-content>
+            <div formArrayName="descriptions">
+
+              <mat-tab-group>
+                <mat-tab *ngFor="let item of descriptions.controls; let i=index" [label]="generateLabel(item)">
+                  <div class="grid grid-cols-1 mt-3" [formGroupName]="i">
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{translate.instant('network.deposit name to') + ' ' + generateLabel(item) }}</mat-label>
+                      <input matInput formControlName="deposit_name">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{translate.instant('network.deposit description to') + ' ' + generateLabel(item) }}</mat-label>
+                      <input matInput formControlName="deposit_description">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{translate.instant('network.withdraw description to') + ' ' + generateLabel(item) }}</mat-label>
+                      <input matInput formControlName="withdraw_description">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{translate.instant('network.special tips to') + ' ' + generateLabel(item) }}</mat-label>
+                      <input matInput formControlName="special_tips">
+                    </mat-form-field>
+                  </div>
+                </mat-tab>
+              </mat-tab-group>
+            </div>
+
+          </mat-card-content>
+          <mat-card-footer>
+            <mat-progress-bar mode="determinate" bufferValue="0"></mat-progress-bar>
+          </mat-card-footer>
+        </mat-card>
+      </section>
+
+    </div>
+
+    <div class="w-full lg:w-3/12 lg:p-5 mt-3 lg:mt-0" id="leftSection">
+      <button (click)="submitForm(1)" mat-raised-button color="primary" class="mb-2 w-full order-1">
+        {{translate.instant('action.save and back to the list')}}
+        <mat-icon>telegram</mat-icon>
+      </button>
+      <button (click)="submitForm(2)" mat-raised-button class="mb-2 w-full order-2">
+        {{translate.instant('action.save and add another')}}
+        <mat-icon>undo</mat-icon>
+      </button>
+      <button (click)="submitForm(3)" mat-raised-button class="mb-2 w-full order-3">
+        {{translate.instant('action.save and continue editing')}}
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <div class="grid grid-cols-2 justify-between mb-2">
+        <span>{{translate.instant('status')}}</span>
+        <mat-slide-toggle [checked]="form.get('status')?.value" class="text-end"></mat-slide-toggle>
+      </div>
+
+      <div class="grid grid-cols-2 justify-between mb-2">
+        <span>{{translate.instant('network.is_local')}}</span>
+        <mat-slide-toggle [checked]="form.get('is_local')?.value" formControlName="is_local"
+                          class="text-end"></mat-slide-toggle>
+      </div>
+
+      <div class="grid grid-cols-2 justify-between mb-2">
+        <span>{{translate.instant('network.is_default')}}</span>
+        <mat-slide-toggle [checked]="form.get('is_default')?.value" formControlName="is_default"
+                          class="text-end"></mat-slide-toggle>
+      </div>
+
+    </div>
+  </section>
+
+</form>

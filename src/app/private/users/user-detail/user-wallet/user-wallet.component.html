@@ -1,0 +1,8 @@
+<app-aggrid-container class="w-full !cursor-pointer"
+ [DataSource]="(userWallet | async)!"
+ [IColDefs]="IColDefs"
+ [length]="totalData()"
+ (_pageChange)="pageChange($event)"
+ (cellClicked)="cellClicked($event)"
+ [_refreshRows]="_refreshRows()"
+ ></app-aggrid-container>

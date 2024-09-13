@@ -1,0 +1,82 @@
+
+<section class="mx-auto flex justify-start items-center rounded-lg overflow-hidden bg-white relative mt-5">
+
+  <div>
+    <p-tabMenu [model]="items" [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event)"></p-tabMenu>
+  </div>
+  <mat-progress-bar mode="determinate" bufferValue="0" class="!absolute !bottom-0 !left-0"></mat-progress-bar>
+
+</section>
+
+    <section class="price-info w-full h-fit mt-3">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div>
+            <p-tabMenu [model]="activeItem?.items"  [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event)"></p-tabMenu>
+          </div>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content class="flex justify-center items-center w-full h-full p-1">
+
+          <div [ngSwitch]="activeItem?.id">
+            <div *ngSwitchCase="1" class="flex justify-start items-center">
+
+              <div [ngSwitch]="userInfoActivated()">
+                <div *ngSwitchCase="1" class="flex  flex-col lg:flex-row justify-center lg:justify-start items-center p-1">
+                  <div class="w-full h-full flex-1">
+                    <div *ngIf="levelData()['icon'] != undefined;else iconLoading" class="bg-slate-300 shadow-inner rounded-lg w-full lg:w-52 h-full lg:h-52 flex justify-center items-center p-3">
+                      <img [src]="'https://pex-develop-storage.s3.ir-thr-at1.arvanstorage.com/' + levelData().icon" alt="" title="" class="w-2/3 h-2/3">
+                    </div>
+                    <ng-template class="!w-full !h-full" #iconLoading>
+                      <div class="!w-52 !h-52">
+                        <p-skeleton class="mt-2" width="13rem" height="13rem"></p-skeleton>
+                    </div>
+                    </ng-template>
+                  </div>
+                  <div class="w-full h-full flex-2 p-5">
+                      <ul class="inline-block space-y-3">
+                        <ng-container *ngIf="levelData()['poan_from'] != undefined; else loading">
+                          <li class="text-slate-500"><span class="!text-black">وضعیت: </span>{{levelData()?.status == true ? 'فعال' : 'غیرفعال'}}</li>
+                          <li class="text-slate-500"><span class="!text-black">کف امتیاز: </span>{{levelData()?.poan_from}}</li>
+                          <li class="text-slate-500"><span class="!text-black">سقف امتیاز: </span>{{levelData()?.poan_to}}</li>
+                          <li class="text-slate-500"><span class="!text-black">تخفیف سطح: </span>{{levelData()?.fee_percent_discount + 'درصد'}}</li>
+                          <li class="text-slate-500"><span class="!text-black">سقف واریز در روز: </span>{{levelData()?.max_deposit_day}}</li>
+                          <li class="text-slate-500"><span class="!text-black">سقف واریز در ماه: </span>{{levelData()?.max_deposit_month}}</li>
+                          <li class="text-slate-500"><span class="!text-black">سقف برداشت در روز: </span>{{levelData()?.max_withdraw_day}}</li>
+                          <li class="text-slate-500"><span class="!text-black">سقف برداشت در ماه: </span>{{levelData()?.max_withdraw_month}}</li>
+                        </ng-container>
+                        <ng-template class="bg-green-800 w-52 h-full" #loading>
+                            <li *ngFor="let item of [0,1,2,3,4,5,6,7,8]" class="!w-52 !h-5">
+                                <p-skeleton class="mt-2 !w-full !h-full"></p-skeleton>
+                            </li>
+                        </ng-template>
+                      </ul>
+                  </div>
+
+                </div>
+              </div>
+              <!-- <div *ngSwitchCase="2" class="flex justify-start items-center p-3">
+                    <ng-container *ngIf="userSessions() == []" class="flex justify-center items-center p-3">
+                      داده ای موجود نیست
+                    </ng-container>
+                <ul>
+                  <li *ngFor="let sessions of userSessions()">
+                      {{sessions | json}}
+                  </li>
+                </ul>
+              </div> -->
+  </div>
+  <div *ngSwitchCase="2">
+    <app-club-commission symbol_type="currency" (editCommission)="openDialog($event, clubCommissionFormComponent)" [refresh]="(refresh | async)!" [levelId]="levelData()?.id"></app-club-commission>
+  </div>
+  <div *ngSwitchCase="3">
+    <app-club-commission symbol_type="currency_pair" (editCommission)="openDialog($event, clubCommissionFormComponent)" [refresh]="(refresh | async)!" [levelId]="levelData()?.id"></app-club-commission>
+  </div>
+</div>
+
+        </mat-card-content>
+        <mat-card-footer>
+          <mat-progress-bar mode="determinate" bufferValue="0"></mat-progress-bar>
+        </mat-card-footer>
+      </mat-card>
+</section>

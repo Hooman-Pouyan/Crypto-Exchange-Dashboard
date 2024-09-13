@@ -1,0 +1,18 @@
+
+<app-filter (_filteredParams)="refreshData($event)" (newUser)="newUser()"></app-filter>
+
+<section
+  class="w-full h-fit mx-auto flex flex-col justify-center items-center">
+
+<app-aggrid-container class="w-full"
+ [DataSource]="(tableSource | async)!"
+ [IColDefs]="IColDefs"
+ [loadingStatus]="refreshMode()"
+ [length]="totalData()"
+ (_pageChange)="pageChange($event)"
+ [_refreshRows]="_refreshRows()"
+ (cellClicked)="cellClicked($event)"
+
+ ></app-aggrid-container>
+
+</section>

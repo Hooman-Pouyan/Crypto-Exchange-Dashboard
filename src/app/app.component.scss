@@ -1,0 +1,12 @@
+a {
+  background-color: red !important;
+}
+
+:host ::ng-deep .p-panelmenu-icon {
+  float: left !important;
+  margin-right: 0.5rem !important; // Adjust the margin as needed
+}
+
+:host ::ng-deep .p-panelmenu {
+  color: red !important;
+}

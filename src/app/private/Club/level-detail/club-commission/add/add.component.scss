@@ -1,0 +1,7 @@
+:host ::ng-deep .mat-select-panel {
+  z-index: 9999 !important; /* Use a higher value than the PrimeNG dialog's container z-index */
+}
+
+.mat-select-panel {
+  z-index: 9999
+}

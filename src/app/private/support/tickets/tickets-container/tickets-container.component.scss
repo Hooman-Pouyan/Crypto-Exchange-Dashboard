@@ -1,0 +1,12 @@
+:host ::ng-deep {
+
+  .p-splitter {
+    direction: ltr;
+  }
+
+  @media (max-width: 992px) {
+    .mat-mdc-tab-labels {
+      font-size: 10px;
+    }
+  }
+}

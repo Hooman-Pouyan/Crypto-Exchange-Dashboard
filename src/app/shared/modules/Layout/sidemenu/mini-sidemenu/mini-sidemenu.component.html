@@ -1,0 +1,32 @@
+<div class="flex flex-col justify-center items-center mt-3 pb-10">
+  <h1 class="text-5xl text-center">
+    <app-logo></app-logo>
+  </h1>
+
+  <section [ngClass]="userRole == 'Owner' ? 'bg-yellow-600' : userRole == 'Admin' ? 'bg-indigo-600' : 'bg-green-600'"
+           class="w-12 h-32 flex flex-col p-7 text-center items-center mt-4 mr-[0.1rem] rounded-sm shadow-inner">
+    <div class="flex-col text-white text-center justify-center items-center">
+      <mat-icon>assignment_ind</mat-icon>
+      <div class="text-sm">{{"userRole." + userRole | translate}}</div>
+    </div>
+  </section>
+
+  <section class="w-full flex flex-col justify-center items-center space-y-2 mt-1">
+
+    <div class="flex justify-center items-center rounded-lg transition-all duration-200 !w-[50px] !h-[50px]"
+         [ngClass]="menu.title == '/' ? 'dashboard' : menu.title" *ngFor="let menu of items">
+      <a mat-ripple (click)="menu.title == 'Quit' ? logOut() : ''" class="w-full h-full"
+         [routerLink]="[menu.routerLink]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <span class="notif" *ngIf="newNotifs > 0 && menu.title == 'support'">
+          {{newNotifs}}
+        </span>
+        <mat-icon
+          class="!text-2xl lg:!text-3xl xl:!text-3xl !w-full !h-full flex justify-center text-center items-center mx-auto py-2">
+          {{menu.iconClass}}
+        </mat-icon>
+      </a>
+
+    </div>
+  </section>
+
+</div>

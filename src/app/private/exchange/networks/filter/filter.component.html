@@ -1,0 +1,58 @@
+<form [formGroup]="filterForm" (ngSubmit)="saveForm()" class="mt-2">
+  <div class="text-end mb-2">
+    <button type="button" routerLink="add" mat-raised-button class="!bg-green-600 hover:!bg-green-700 !text-white">
+      <mat-icon>add</mat-icon>
+      {{translateService.instant('add new')}}
+    </button>
+  </div>
+  <div class="grid lg:grid-cols-4 lg:gap-4">
+    <mat-form-field>
+      <mat-label>{{translateService.instant('Currency.DEFAULT')}}</mat-label>
+      <mat-select formControlName="currency" [(ngModel)]="currency">
+        <input (keyup)="filterResult($event)" id="filterBox" class="w-full" [placeholder]="'search' | translate">
+        <mat-option *ngFor="let currency of filteredCurrencies()" [value]="currency.symbol">{{currency.symbol}}</mat-option>
+      </mat-select>
+      <button *ngIf="currency" matSuffix mat-icon-button aria-label="Clear" (click)="currency=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{translateService.instant('network.deposit_enable')}}</mat-label>
+      <mat-select formControlName="deposit_enable" [(ngModel)]="deposit_enable">
+        <mat-option [value]="true">{{translateService.instant('enable')}}</mat-option>
+        <mat-option [value]="false">{{translateService.instant('disable')}}</mat-option>
+      </mat-select>
+      <button *ngIf="deposit_enable!=null" matSuffix mat-icon-button aria-label="Clear" (click)="deposit_enable=null">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{translateService.instant('network.withdraw_enable')}}</mat-label>
+      <mat-select formControlName="withdraw_enable" [(ngModel)]="withdraw_enable">
+        <mat-option [value]="true">{{translateService.instant('enable')}}</mat-option>
+        <mat-option [value]="false">{{translateService.instant('disable')}}</mat-option>
+      </mat-select>
+      <button *ngIf="withdraw_enable!=null" matSuffix mat-icon-button aria-label="Clear" (click)="withdraw_enable=null">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{translateService.instant('status')}}</mat-label>
+      <mat-select formControlName="status" [(ngModel)]="status">
+        <mat-option [value]="true">{{translateService.instant('enable')}}</mat-option>
+        <mat-option [value]="false">{{translateService.instant('disable')}}</mat-option>
+      </mat-select>
+      <button *ngIf="status!=null" matSuffix mat-icon-button aria-label="Clear" (click)="status=null">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+  </div>
+  <div class="w-full text-end">
+    <button class="me-2" type="submit" mat-raised-button color="primary">{{translateService.instant('search')}}</button>
+    <button type="submit" mat-raised-button color="accent" (click)="filterForm.reset()">ریست</button>
+  </div>
+</form>

@@ -1,0 +1,18 @@
+<ag-grid-angular #myGrid
+  style="width: 100%; height: 550px"
+  class="ag-theme-alpine mt-5 !cursor-pointer"
+  [rowData]="rowData$ | async"
+  (gridReady)="onGridReady($event)"
+  (cellClicked)="onCellClicked($event)"
+  [gridOptions]="gridOptions"
+  [defaultColDef]="defaultColDef()"
+  [enableRtl]="true"
+>
+</ag-grid-angular>
+<app-pagination-container *ngIf="hasPagination && length>10"
+                          class="w-full"
+                          [length]="length"
+                          (pageChange)="pageChange($event)"
+></app-pagination-container>
+
+

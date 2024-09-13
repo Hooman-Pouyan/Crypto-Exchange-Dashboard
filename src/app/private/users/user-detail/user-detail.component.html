@@ -1,0 +1,133 @@
+<section class="mx-auto lg:flex justify-start items-center rounded-lg overflow-hidden bg-white relative mt-5">
+
+  <div>
+    <p-tabMenu [model]="items" [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event)"></p-tabMenu>
+  </div>
+  <mat-progress-bar mode="determinate" bufferValue="0" class="!absolute !bottom-0 !left-0"></mat-progress-bar>
+
+</section>
+
+<section class="price-info w-full h-fit mt-3">
+  <mat-card class="example-card">
+    <mat-card-header class="card-head">
+      <div>
+        <p-tabMenu [model]="activeItem?.items" [activeItem]="activeItem"
+                   (activeItemChange)="onActiveItemChange($event)"></p-tabMenu>
+      </div>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content class="flex justify-center items-center w-full h-full p-3">
+
+      <div [ngSwitch]="activeItem?.id">
+        <div *ngSwitchCase="1" class="flex justify-start items-center">
+
+          <div [ngSwitch]="userInfoActivated()" class="w-full">
+            <div *ngSwitchCase="1" class="flex flex-col lg:flex-row justify-start items-center p-1">
+              <div class="w-full h-full flex-1 justify-center items-center">
+                <div class="bg-slate-300 rounded-lg w-52 h-52 flex justify-start items-center text-7xl relative">
+                  <img src="" alt="" title="">
+                  <span class="mx-auto"
+                        *ngIf="userData().firstname">{{userData().firstname[0] + '.' + userData().lastname[0]}}</span>
+                </div>
+              </div>
+              <div class="w-full h-full flex-2 p-5">
+                <ul class="inline-block space-y-3">
+                  <ng-container *ngIf="userData()['mobile'] != undefined; else loading">
+                    <li class="text-slate-500"><span
+                      class="!text-black">نام: </span>{{!userData()?.firstname ? "نامشخص(هویت احراز نشده)" : userData()?.firstname}}
+                    </li>
+                    <li class="text-slate-500"><span
+                      class="!text-black">نام خانوادگی: </span>{{!userData()?.lastname ? "نامشخص(هویت احراز نشده)" : userData()?.lastname}}
+                    </li>
+                    <li class="text-slate-500"><span
+                      class="!text-black">ایمیل: </span>{{!userData()?.email ? "نامشخص(ایمیل احراز نشده)" : userData()?.email}}
+                    </li>
+                    <li class="text-slate-500"><span class="!text-black">شماره همراه: </span>{{userData()?.mobile}}</li>
+                    <li class="text-slate-500"><span class="!text-black">تاریخ مسدودی: </span>{{userData()?.blocked_at}}
+                    </li>
+                    <li class="text-slate-500"><span class="!text-black">تاریخ ثبت نام: </span>{{userData()?.verify_at}}
+                    </li>
+                    <li class="text-slate-500"><span class="!text-black">تایید هویت گوگل: </span>{{userData()?.g2f}}
+                    </li>
+                    <li class="text-slate-500"><span
+                      class="!text-black">زبان پیش فرض: </span>{{userData()?.user_default_language}}</li>
+                    <li class="text-slate-500"><span class="!text-black">ارز پیش فرض: </span>{{userData()?.currency}}
+                    </li>
+                    <!-- <li class="text-slate-500"><span class="!text-black">وضعیت آنلاین: </span>{{userData()?.online == true ? 'آنلاین' : 'آفلاین' }}</li> -->
+                    <li class="text-slate-500"><span class="!text-black">سطح دسترسی: </span>
+                      {{ userData()?.role_id == '' ? 'کاربر' : roles[userData()?.role_id - 1] }}
+                    </li>
+                  </ng-container>
+                  <ng-template class="bg-green-800 w-52 h-full" #loading>
+                    <li *ngFor="let item of [0,1,2,3,4,5,6,7,8,9]" class="!w-52 !h-5">
+                      <p-skeleton class="mt-2 !w-full !h-full"></p-skeleton>
+                    </li>
+                  </ng-template>
+                </ul>
+              </div>
+            </div>
+            <div *ngSwitchCase="2" class="flex justify-center w-full h-full items-center p-3 pb-5">
+              <app-user-wallet class="w-full" (walletDetail)="openWalletDetail($event)"
+                               [userId]="userData().id"></app-user-wallet>
+            </div>
+            <div *ngSwitchCase="3" class="flex justify-center w-full h-full items-center p-3 pb-5">
+              <app-user-sessions class="w-full" [userId]="userData().id"></app-user-sessions>
+            </div>
+            <div *ngSwitchCase="4" class="flex justify-center w-full h-full items-center p-10 pb-14">
+              <div class="flex justify-around items-center w-2/3 relative overflow-hidde p-5n">
+                <div
+                  class="flex justify-center items-center w-10 h-10 rounded-full border-2 border-blue-400 bg-blue-100 z-10 relative"
+                  [ngClass]="email() ? 'bg-green-200 border-green-600' : ''">
+                  <mat-icon>{{email() ? 'check' : 'close'}}</mat-icon>
+                  <div class="absolute -bottom-7 mx-auto">ایمیل</div>
+                </div>
+                <div
+                  class="flex justify-center items-center w-10 h-10 rounded-full border-2 border-blue-400 bg-blue-100 z-10 relative"
+                  [ngClass]="personal() ? 'bg-green-200 border-green-600' : ''">
+                  <mat-icon>{{personal() ? 'check' : 'close'}}</mat-icon>
+                  <div class="absolute -bottom-7 mx-auto -mr-5 w-32">اطلاعات شخصی</div>
+                </div>
+                <div
+                  class="flex justify-center items-center w-10 h-10 rounded-full border-2 border-blue-400 bg-blue-100 z-10 relative"
+                  [ngClass]="commitment() ? 'bg-green-200 border-green-600' : ''">
+                  <mat-icon>{{commitment() ? 'check' : 'close'}}</mat-icon>
+                  <div class="absolute -bottom-7 mx-auto">تعهدنامه</div>
+                </div>
+                <div
+                  class="flex justify-center items-center w-10 h-10 rounded-full border-2 border-blue-400 bg-blue-100 z-10 relative"
+                  [ngClass]="credit_card() ? 'bg-green-200 border-green-600' : ''">
+                  <mat-icon>{{credit_card() ? 'check' : 'close'}}</mat-icon>
+                  <div class="absolute -bottom-7 w-32 mx-auto mr-14">کارت بانکی</div>
+                </div>
+                <div class="w-3/4 h-[2px] bg-slate-400 absolute"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div *ngSwitchCase="2">
+          <app-user-commission symbol_type="currency" class="pb-5" (editCommission)="openDialog($event)"
+                               [refresh]="(refresh | async)!" [userId]="userData().id"></app-user-commission>
+        </div>
+        <div *ngSwitchCase="3">
+          <app-user-commission symbol_type="currency_pair" class="pb-5" (editCommission)="openDialog($event)"
+                               [refresh]="(refresh | async)!" [userId]="userData().id"></app-user-commission>
+        </div>
+        <div *ngSwitchCase="4">
+          <app-user-tasks (editCommission)="openDialog($event)" class="pb-5" [refresh]="(refresh | async)!"
+                          [userId]="userData().id"></app-user-tasks>
+        </div>
+        <div *ngSwitchCase="5">
+          <app-user-poan-level></app-user-poan-level>
+        </div>
+        <div *ngSwitchCase="6">
+          <app-user-resetpassword></app-user-resetpassword>
+        </div>
+      </div>
+
+    </mat-card-content>
+    <mat-card-footer>
+      <mat-progress-bar mode="determinate" bufferValue="0"></mat-progress-bar>
+    </mat-card-footer>
+  </mat-card>
+</section>

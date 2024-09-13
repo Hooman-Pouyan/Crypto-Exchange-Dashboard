@@ -1,0 +1,25 @@
+
+
+<div class="card mt-5 relative">
+    <p-splitter [panelSizes]="[80, 20]" styleClass="overflow-hidden h-auto">
+        <ng-template pTemplate>
+            <div class="w-full h-full bg-slate-100">
+
+              <router-outlet></router-outlet>
+
+            </div>
+        </ng-template>
+        <ng-template pTemplate>
+            <div class="flex-col lg:flex-row justify-start items-start w-full">
+              <section class="flex flex-col justify-start items-center w-full">
+                <h1 class="!w-full mt-7 text-2xl bg-slate-300 bg-opacity-30 p-5 text-center">درخواست ها</h1>
+                <p-divider></p-divider>
+                <mat-tab-group (selectedTabChange)="changeTab($event)" [selectedIndex]="tabIndex" mat-stretch-tabs="false" mat-align-tabs="start">
+                  <mat-tab label="صندوق ورودی"></mat-tab>
+                  <mat-tab label="آرشیوها"></mat-tab>
+                </mat-tab-group>
+              </section>
+            </div>
+        </ng-template>
+    </p-splitter>
+</div>

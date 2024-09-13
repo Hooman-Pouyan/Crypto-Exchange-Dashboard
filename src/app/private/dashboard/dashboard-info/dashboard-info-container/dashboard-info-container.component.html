@@ -1,0 +1,175 @@
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 bg-slate-200 bg-opacity-25 w-full h-fit gap-5 p-16 mt-5">
+
+  <div class="col-span-1 lg:col-span-1 w-full h-full">
+    <mat-card class="w-full h-32 !rounded-lg !overflow-hidden cursor-pointer" (click)="op.toggle($event)">
+      <mat-card-header class="!flex !justify-start !items-center !text-green-700">
+        <mat-icon>remove_red_eye</mat-icon>
+        <span class="mx-2">{{'online_users' | translate}}</span>
+      </mat-card-header>
+      <mat-card-content class="!text-3xl text-blue-950 !p-7 text-center">
+        <ng-container *ngIf="dashboardData()['online_users'];else loading">
+          {{dashboardData().online_users}}
+        </ng-container>
+      </mat-card-content>
+      <ng-template #loading>
+        <p-skeleton width="7rem" height="2rem" styleClass="text-center mx-auto" borderRadius="16px"></p-skeleton>
+      </ng-template>
+      <mat-progress-bar [mode]="Loading" bufferValue="50" class="!rounded-full !absolute !bottom-0 !left-0"></mat-progress-bar>
+
+<p-overlayPanel #op [style]="{'width': '550px'}" [showCloseIcon]="true">
+    <ng-template pTemplate="content">
+        <p-table [value]="onlineUsers" selectionMode="single" (onRowSelect)="onRowSelect($event, op)" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+                <tr>
+                  <th pSortableColumn="id">id<p-sortIcon field="price"></p-sortIcon></th>
+                    <th pSortableColumn="firstname">نام<p-sortIcon field="name"></p-sortIcon></th>
+                    <th pSortableColumn="lastname">نام خانوادگی<p-sortIcon field="name"></p-sortIcon></th>
+                    <th pSortableColumn="mobile">شماره همراه <p-sortIcon field="price"></p-sortIcon></th>
+                    <th pSortableColumn="identity_status">وضعیت احراز<p-sortIcon field="price"></p-sortIcon></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-product>
+                <tr [pSelectableRow]="rowData">
+                    <td>{{product.id}}</td>
+                    <td>{{product.firstname}}</td>
+                    <td>{{product.lastname}}</td>
+                    <td>{{product.mobile}}</td>
+                    <td>{{product.identity_status}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </ng-template>
+</p-overlayPanel>
+
+    </mat-card>
+  </div>
+  <div class="col-span-1 lg:col-span-3 w-full h-full">
+    <mat-card class="w-full lg:h-32 !rounded-lg !overflow-hidden">
+      <mat-card-header class="!flex !justify-start !items-center !text-blue-700">
+        <mat-icon>group</mat-icon>
+        <span class="mx-2">{{"SignUp" | translate}}</span>
+      </mat-card-header>
+      <mat-card-content class="!text-xl text-blue-950 !p-7 text-center">
+        <ng-container *ngIf="dashboardData()['online_users'];else loading">
+          <div class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 justify-center items-center space-x-5">
+          <div class="flex-1 flex justify-center items-center">
+            <mat-icon>today</mat-icon>&nbsp;
+            <span>امروز: </span>&nbsp;
+            <span>{{dashboardData().signup_today}}</span>
+          </div>
+          <div class="flex-1 flex justify-center items-center">
+            <mat-icon>view_module</mat-icon>&nbsp;
+            <span>این هفته: </span>&nbsp;
+            <span>{{dashboardData().signup_weekly}}</span>
+          </div>
+          <div class="flex-1 flex justify-center items-center">
+            <mat-icon>calendar_today</mat-icon>&nbsp;
+            <span>این ماه: </span>&nbsp;
+            <span>{{dashboardData().signup_month}}</span>
+          </div>
+        </div>
+</ng-container>
+
+      </mat-card-content>
+      <ng-template class="!bg-red-500" #loading>
+        <p-skeleton width="10rem" height="2rem" styleClass="text-center mx-auto" borderRadius="16px"></p-skeleton>
+      </ng-template>
+      <mat-progress-bar [mode]="Loading" bufferValue="50" class="!rounded-full !absolute !bottom-0 !left-0"></mat-progress-bar>
+
+    </mat-card>
+  </div>
+  <div class="col-span-1 w-full h-full cursor-pointer" [routerLink]="['/Dashboard/users']">
+    <mat-card class="w-full h-32 !rounded-lg !overflow-hidden">
+      <mat-card-header class="!flex !justify-start !items-center !text-yellow-700">
+        <mat-icon>people</mat-icon>
+        <span class="mx-2">{{"users" | translate}}</span>
+      </mat-card-header>
+      <mat-card-content class="!text-3xl text-blue-950 !p-7 text-center">
+        <ng-container *ngIf="dashboardData()['online_users'];else loading">
+
+        {{dashboardData().users}}
+      </ng-container>
+      </mat-card-content>
+            <ng-template #loading>
+        <p-skeleton width="7rem" height="2rem" styleClass="text-center mx-auto" borderRadius="16px"></p-skeleton>
+      </ng-template>
+      <mat-progress-bar [mode]="Loading" bufferValue="50" class="!rounded-full !absolute !bottom-0 !left-0"></mat-progress-bar>
+
+    </mat-card>
+  </div>
+  <div class="col-span-1 w-full h-full">
+    <mat-card class="w-full h-32 !rounded-lg !overflow-hidden">
+      <mat-card-header class="!flex !justify-start !items-center !text-indigo-700">
+        <mat-icon>beenhere</mat-icon>
+        <span class="mx-2">{{"authenticated_users" | translate}}</span>
+      </mat-card-header>
+      <mat-card-content class="!text-3xl text-blue-950 !p-7 text-center">
+        <ng-container *ngIf="dashboardData()['online_users'];else loading">
+
+        {{dashboardData().authenticated_users}}
+      </ng-container>
+      </mat-card-content>
+            <ng-template #loading>
+        <p-skeleton width="7rem" height="2rem" styleClass="text-center mx-auto" borderRadius="16px"></p-skeleton>
+      </ng-template>
+      <mat-progress-bar [mode]="Loading" bufferValue="50" class="!rounded-full !absolute !bottom-0 !left-0"></mat-progress-bar>
+
+    </mat-card>
+  </div>
+  <div class="col-span-1 lg:col-span-2 w-full h-full">
+    <mat-card class="w-full h-32 !rounded-lg !overflow-hidden">
+      <mat-card-header class="!flex !justify-start !items-center !text-amber-700">
+        <mat-icon>group_add</mat-icon>
+        <span class="mx-2">{{"invited_users" | translate}}</span>
+      </mat-card-header>
+      <mat-card-content class="!text-3xl text-blue-950 !p-7 text-center">
+        <ng-container *ngIf="dashboardData()['online_users'];else loading">
+
+        {{dashboardData().invited_users}}
+      </ng-container>
+      </mat-card-content>
+            <ng-template #loading>
+        <p-skeleton width="7rem" height="2rem" styleClass="text-center mx-auto" borderRadius="16px"></p-skeleton>
+      </ng-template>
+      <mat-progress-bar [mode]="Loading" bufferValue="50" class="!rounded-full !absolute !bottom-0 !left-0"></mat-progress-bar>
+
+    </mat-card>
+  </div>
+  <div class="col-span-1 lg:col-span-2 w-full h-full rounded-lg">
+    <mat-card class="w-full h-32 !rounded-lg !overflow-hidden relative">
+      <mat-card-header class="!flex !justify-start !items-center !text-red-700">
+        <mat-icon>confirmation_number</mat-icon>
+        <span class="mx-2">{{"no_answered_ticket" | translate}}</span>
+      </mat-card-header>
+      <mat-card-content class="!text-3xl text-blue-950 !p-7 text-center">
+        <ng-container *ngIf="dashboardData()['online_users'];else loading">
+
+        {{dashboardData().no_answered_tickets}}
+      </ng-container>
+      </mat-card-content>
+            <ng-template #loading>
+        <p-skeleton width="7rem" height="2rem" styleClass="text-center mx-auto" borderRadius="16px"></p-skeleton>
+      </ng-template>
+      <mat-progress-bar [mode]="Loading" bufferValue="50" class="!rounded-full !absolute !bottom-0 !left-0"></mat-progress-bar>
+    </mat-card>
+  </div>
+  <div class="col-span-1 lg:col-span-2 w-full h-full">
+    <mat-card class="w-full h-32 !rounded-lg !overflow-hidden">
+      <mat-card-header class="!flex !justify-start !items-center !text-cyan-700">
+      <mat-icon>local_post_office</mat-icon>
+      <span class="mx-2">{{"no_answered_task" | translate}}</span>
+    </mat-card-header>
+      <mat-card-content class="!text-3xl text-blue-950 !p-7 text-center">
+        <ng-container *ngIf="dashboardData()['online_users'];else loading">
+
+        {{dashboardData().no_answered_task}}
+      </ng-container>
+      </mat-card-content>
+            <ng-template #loading>
+        <p-skeleton width="7rem" height="2rem" styleClass="text-center mx-auto" borderRadius="16px"></p-skeleton>
+      </ng-template>
+      <mat-progress-bar [mode]="Loading" bufferValue="50" class="!rounded-full !absolute !bottom-0 !left-0"></mat-progress-bar>
+
+    </mat-card>
+  </div>
+</section>

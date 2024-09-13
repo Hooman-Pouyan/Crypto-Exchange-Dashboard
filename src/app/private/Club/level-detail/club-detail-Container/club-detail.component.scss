@@ -1,0 +1,13 @@
+:host ::ng-deep{
+  @media (max-width: 991px) {
+    .p-tabmenu-nav{
+      display: block !important;
+      li{
+        a{
+          border:none !important
+        }
+      }
+    }
+  }
+
+}

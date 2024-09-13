@@ -1,0 +1,30 @@
+
+:host ::ng-deep {
+
+  .p-breadcrumb {
+    direction: rtl !important;
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: transparent;
+    border: none;
+    @media (max-width: 992px) {
+      font-size: 12px;
+    }
+  }
+
+  .p-menuitem-text:hover {
+    color: rgb(52, 52, 173) !important;
+
+  }
+
+  .p-breadcrumb-chevron {
+    transform: rotate(180deg);
+  }
+
+
+}
+#backIcon{
+  mat-icon{
+    transform: scale(2);
+  }
+}

@@ -1,0 +1,218 @@
+<section class="mt-3 relative">
+  <p-tabMenu [model]="items" [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event)"></p-tabMenu>
+  <mat-progress-bar mode="determinate" bufferValue="0" class="!absolute !bottom-0 !left-0"></mat-progress-bar>
+</section>
+<div [ngSwitch]="activeItem?.id">
+  <section *ngSwitchCase="1">
+    <form [formGroup]="form">
+
+      <section class="flex flex-col lg:flex-row justify-center gap-5">
+        <div class="w-full lg:w-9/12 lg:pt-5 mt-3 lg:mt-0 flex flex-col justify-center gap-y-5">
+          <section class="name w-full h-fit">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <mat-card-subtitle>{{translate.instant('specification')}}</mat-card-subtitle>
+              </mat-card-header>
+              <mat-divider></mat-divider>
+              <mat-card-content>
+                <div formArrayName="descriptions">
+
+                  <mat-tab-group>
+                    <mat-tab *ngFor="let item of descriptions.controls; let i=index" [label]="generateLabel(item)">
+                      <div class="grid lg:grid-cols-3 gap-2 mt-2 p-1 lg:p-0" [formGroupName]="i">
+                        <mat-form-field appearance="outline">
+                          <mat-label>{{translate.instant('full name to') + ' ' + generateLabel(item) }}</mat-label>
+                          <input matInput formControlName="name">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                          <mat-label>{{translate.instant('slug to') + ' ' + generateLabel(item) }}</mat-label>
+                          <input matInput formControlName="code">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline">
+                          <mat-label>{{translate.instant('description to') + ' ' + generateLabel(item) }}</mat-label>
+                          <input matInput formControlName="description">
+                        </mat-form-field>
+                      </div>
+                    </mat-tab>
+                  </mat-tab-group>
+                </div>
+
+              </mat-card-content>
+              <mat-card-footer>
+                <mat-progress-bar mode="determinate" bufferValue="0"></mat-progress-bar>
+              </mat-card-footer>
+            </mat-card>
+          </section>
+
+          <section class="main-info w-full h-fit">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <mat-card-subtitle>{{translate.instant('Basic Information')}}</mat-card-subtitle>
+              </mat-card-header>
+              <mat-divider></mat-divider>
+              <mat-card-content>
+                <div class="grid lg:grid-cols-2 mt-2 gap-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('slug')}}</mat-label>
+                    <input matInput formControlName="slug">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('symbol')}}</mat-label>
+                    <input matInput formControlName="symbol">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('symbol_type')}}</mat-label>
+                    <mat-select formControlName="unit" [(ngModel)]="selectedUnit">
+                      <mat-option [value]="'crypto'">{{translate.instant('Currency.unit.crypto')}}</mat-option>
+                      <mat-option [value]="'fiat'">{{translate.instant('Currency.unit.fiat')}}</mat-option>
+                      <mat-option [value]="'electronic'">{{translate.instant('Currency.unit.electronic')}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('priority')}}</mat-label>
+                    <input matInput formControlName="priority">
+                  </mat-form-field>
+
+                </div>
+              </mat-card-content>
+              <mat-card-footer>
+                <mat-progress-bar mode="determinate" bufferValue="0"></mat-progress-bar>
+              </mat-card-footer>
+            </mat-card>
+          </section>
+
+          <section class="price-info w-full h-fit">
+            <mat-card class="example-card">
+              <mat-card-header>
+                <mat-card-subtitle>{{translate.instant('basic information')}}</mat-card-subtitle>
+              </mat-card-header>
+              <mat-divider></mat-divider>
+              <mat-card-content>
+                <div class="grid lg:grid-cols-2 gap-2">
+
+                  <section class="flex gap-2 align-center p-2">
+                    <section class="flex gap-2 flex-col" style="transform: translateY(-6px)">
+                      <button (click)="changeSell('plus')" class="change-button"
+                              [ngClass]="sellStatus==='plus'?'active':''">+
+                      </button>
+                      <button (click)="changeSell('minus')" class="change-button"
+                              [ngClass]="sellStatus==='minus'?'active':''">-
+                      </button>
+                    </section>
+                    <mat-form-field appearance="outline" class="w-full">
+                      <mat-label>{{translate.instant('exchange.sell_rate_change')}}</mat-label>
+                      <input matInput dir="ltr" formControlName="exchange_sell_rate_change"/>
+                    </mat-form-field>
+                  </section>
+
+                  <section class="flex gap-2 align-center p-2">
+                    <section class="flex gap-2 flex-col" style="transform: translateY(-6px)">
+                      <button (click)="changeBuy('plus')" class="change-button"
+                              [ngClass]="buyStatus==='plus'?'active':''">+
+                      </button>
+                      <button (click)="changeBuy('minus')" class="change-button"
+                              [ngClass]="buyStatus==='minus'?'active':''">-
+                      </button>
+                    </section>
+                    <mat-form-field appearance="outline" class="w-full">
+                      <mat-label>{{translate.instant('exchange.buy_rate_change')}}</mat-label>
+                      <input matInput dir="ltr" formControlName="exchange_buy_rate_change"/>
+                    </mat-form-field>
+                  </section>
+
+                  <mat-form-field appearance="outline" *ngIf="selectedUnit==='fiat'">
+                    <mat-label>{{translate.instant('logic_min_price')}}</mat-label>
+                    <input matInput formControlName="min_price"/>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" *ngIf="selectedUnit==='fiat'">
+                    <mat-label>{{translate.instant('logic_max_price')}}</mat-label>
+                    <input matInput formControlName="max_price"/>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('exchange_fee')}}</mat-label>
+                    <input matInput formControlName="exchange_fee"/>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('exchange.min_exchange')}}</mat-label>
+                    <input matInput formControlName="min_exchange"/>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('exchange.max_exchange')}}</mat-label>
+                    <input matInput formControlName="max_exchange"/>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('Currency.unit coefficient')}}</mat-label>
+                    <input matInput formControlName="unit_coefficient"/>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{translate.instant('Currency.precision')}}</mat-label>
+                    <input matInput formControlName="currency_precision"/>
+                  </mat-form-field>
+                </div>
+              </mat-card-content>
+              <mat-card-footer>
+                <mat-progress-bar mode="determinate" bufferValue="0"></mat-progress-bar>
+              </mat-card-footer>
+            </mat-card>
+          </section>
+
+
+        </div>
+
+        <div class="w-full lg:w-3/12 lg:pt-5 mt-3 lg:mt-0" id="leftSection">
+          <button (click)="submitForm(1)" mat-raised-button color="primary" class="mb-2 w-full order-1">
+            {{translate.instant('action.save and back to the list')}}
+            <mat-icon>telegram</mat-icon>
+          </button>
+          <button (click)="submitForm(2)" mat-raised-button class="mb-2 w-full order-2">
+            {{translate.instant('action.save and add another')}}
+            <mat-icon>undo</mat-icon>
+          </button>
+          <button (click)="submitForm(3)" mat-raised-button class="mb-2 w-full order-3">
+            {{translate.instant('action.save and continue editing')}}
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <div class="grid grid-cols-2 justify-between mb-2">
+            <span>{{translate.instant('status')}}</span>
+            <mat-slide-toggle formControlName="status" [checked]="form.get('status')?.value"
+                              class="text-end"></mat-slide-toggle>
+          </div>
+
+          <div class="grid grid-cols-2 justify-between mb-2">
+            <span>{{translate.instant('Currency.default')}}</span>
+            <mat-slide-toggle formControlName="is_default" [checked]="form.get('is_default')?.value"
+                              class="text-end"></mat-slide-toggle>
+          </div>
+
+          <div class="grid grid-cols-2 justify-between mb-2">
+            <span>{{translate.instant('Currency.bank connection')}}</span>
+            <mat-slide-toggle formControlName="bank_connection" [checked]="form.get('bank_connection')?.value"
+                              class="text-end"></mat-slide-toggle>
+          </div>
+
+        </div>
+      </section>
+
+    </form>
+  </section>
+
+  <section *ngSwitchCase="2">
+    <app-addresses [currencyId]="currencyId"></app-addresses>
+  </section>
+
+  <section *ngSwitchCase="3">
+    <app-fees [type]="'currency'" [id]="+currencyId"></app-fees>
+  </section>
+</div>
+
